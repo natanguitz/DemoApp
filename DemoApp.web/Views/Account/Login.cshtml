@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+<h2>Login</h2>
+@using (Html.BeginForm("Login", "Account",
+                new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <div>
+        @Html.TextBox("Username")
+    </div>
+    <div>
+        @Html.Password("Password")
+    </div>
+    <div>
+        <input type="submit" value="Log in" class="btn btn-default" />
+    </div>
+}

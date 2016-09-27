@@ -1,0 +1,44 @@
+﻿@model DemoApp.web.Models.BuildPackage
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="container-fluid">
+
+        <div class="col-md-12">
+            <div class="row">
+                <h1>Let's Start Build Your Package</h1>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3>Package Name : @Model.Package.Name</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <p>Description : @Model.Package.Description</p>
+                        <p>This is your Initial Price kr. @Model.Package.InitialPrice</p>
+                        @foreach (var item in Model.Component)
+                        {
+                            <h2>@item.Name</h2>
+                            foreach (var items in item.ComponentTypes)
+                            {
+                               <p>@items.Name</p> 
+                            }
+                               
+                        }
+                    </div>
+                
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+}
+
+
+
+
+
