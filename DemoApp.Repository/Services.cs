@@ -60,6 +60,15 @@ namespace DemoApp.Repository
             }
         }
 
+        public ComponentType GetSingleComponentType(int id)
+        {
+            using (var context = new DemoAppContext())
+            {
+                var type = context.ComponentTypes.SingleOrDefault(x => x.Id == id);
+                return type;
+            }
+        }
+
 
         public List<Component> GetComponetsNdTypes(int id )
         {
@@ -72,9 +81,13 @@ namespace DemoApp.Repository
             
         }
 
+        public decimal FinalPrice(List<ComponentType> prices)
+        {
+            decimal total = prices.Sum(x => x.Price);
+            return total;
+        }
 
-
-
+     
 
         //ending code lines 
     }

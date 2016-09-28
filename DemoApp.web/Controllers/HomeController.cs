@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using DemoApp.Repository;
+using Microsoft.AspNet.Identity;
 
 namespace DemoApp.web.Controllers
 {
@@ -8,7 +9,7 @@ namespace DemoApp.web.Controllers
         // GET: Home
         public ActionResult Index()
         {
-             var packageTypes = new Services().GetPackageTypes();
+            var packageTypes = new Services().GetPackageTypes();
             
             return View(packageTypes);
         }
@@ -19,8 +20,9 @@ namespace DemoApp.web.Controllers
         {
             var objAllPacks= new Services().GetPackagesById(id);
             return PartialView("Partials/PackagesTypesViewModel", objAllPacks);
-      
         }
+
+
 
         //method ends
     }
