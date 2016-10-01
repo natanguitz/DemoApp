@@ -1,16 +1,22 @@
 ﻿using System.Web.Mvc;
-using DemoApp.Repository;
-using Microsoft.AspNet.Identity;
+using DemoApp.Repository.Services;
 
 namespace DemoApp.web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IServices _iservices;
+
+        public HomeController(IServices services)
+        {
+            _iservices = services;
+        }
+
         // GET: Home
         public ActionResult Index()
         {
-            var packageTypes = new Services().GetPackageTypes();
-            
+            var packageTypes = _iservices.GetPackageTypes();
+
             return View(packageTypes);
         }
 
@@ -18,12 +24,9 @@ namespace DemoApp.web.Controllers
         [HttpGet]
         public PartialViewResult GetPacks(int id)
         {
-            var objAllPacks= new Services().GetPackagesById(id);
+            var objAllPacks = _iservices.GetPackagesById(id);
             return PartialView("Partials/PackagesTypesViewModel", objAllPacks);
         }
-
-
-
         //method ends
     }
 }

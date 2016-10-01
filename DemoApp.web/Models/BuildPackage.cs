@@ -9,6 +9,6 @@ namespace DemoApp.web.Models
     public class BuildPackage
     {
         public Package Package { get; set; }
-        public List<Component> Component { get; set; }
+        public IList<Component> Component { get; set; }
     }
 }

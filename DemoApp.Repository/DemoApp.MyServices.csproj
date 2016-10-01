@@ -90,8 +90,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Services.cs" />
+    <Compile Include="MyServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DemoApp.Data\DemoApp.Data.csproj">

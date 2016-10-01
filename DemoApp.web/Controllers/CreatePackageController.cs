@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using DemoApp.Domain;
-using DemoApp.Repository;
+using DemoApp.Repository.Services;
 using DemoApp.web.Models;
 
 namespace DemoApp.web.Controllers
@@ -12,28 +9,33 @@ namespace DemoApp.web.Controllers
     [Authorize]
     public class CreatePackageController : Controller
     {
+        private readonly IServices _iservices;
+
+        public CreatePackageController(IServices services)
+        {
+            _iservices = services;
+        }
         // GET: CreatePackage
         public ActionResult Create(int id)
         {        
             
             BuildPackage model = new BuildPackage();
-            model.Package = new Services().GetSinglePackage(id);
-            model.Component = new Services().GetComponetsNdTypes(model.Package.Id);
+            model.Package = _iservices.GetSinglePackage(id);
+            model.Component = _iservices.GetComponetsNdTypes(model.Package.Id);
 
             return View(model);
         }
 
         public PartialViewResult GetComponents(int id)
         {
-
-            var comp = new Services().GetComponent(id);
+            var comp = _iservices.GetComponent(id);
 
             return PartialView("Partials/LisOfComponents", comp);
         }
 
         public PartialViewResult GetTypes(int id)
         {
-            var typ = new Services().GetComponentTypeList(id);
+            var typ = _iservices.GetComponentTypeList(id);
 
             return PartialView("Partials/ListOfComponentTyes", typ);
         }
@@ -41,7 +43,8 @@ namespace DemoApp.web.Controllers
         [HttpGet]
         public PartialViewResult PreviuosCartPartialViewResult(int id )
         {
-            var ct = new Services().GetSingleComponentType(id);
+            var ct = _iservices.GetSingleComponentType(id);
+
             MyCart model = new MyCart();
 
             if ((List<ComponentType>)Session["MyCart"] == null)
@@ -55,9 +58,7 @@ namespace DemoApp.web.Controllers
 
             
             model.ComponentTypes.Add(ct);
-            model.PreviousCost = new Services().FinalPrice(model.ComponentTypes);
-           
-
+            model.PreviousCost = _iservices.FinalPrice(model.ComponentTypes);
 
            Session["MyCart"] = model.ComponentTypes;
 

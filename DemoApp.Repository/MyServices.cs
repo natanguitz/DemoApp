@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using DemoApp.Data;
 using DemoApp.Domain;
+using DemoApp.Repository.Services;
 
 namespace DemoApp.Repository
 {
-    public class Services
+    public class MyServices : IServices
     {
         //first code lines 
 
@@ -70,7 +70,7 @@ namespace DemoApp.Repository
         }
 
 
-        public List<Component> GetComponetsNdTypes(int id )
+        public IList<Component> GetComponetsNdTypes(int id )
         {
             using (var context = new DemoAppContext())
             {
