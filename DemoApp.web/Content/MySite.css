@@ -17,6 +17,13 @@
       font-weight: 400;
       margin-bottom: 30px;
   }
+
+  .MyWell {
+      position: absolute;
+      margin-bottom: 0;
+  }
+
+
   .jumbotron {
       background-color: #f4511e;
       color: #fff;

@@ -1,4 +1,9 @@
-﻿<nav class="navbar navbar-default navbar-fixed-top">
+﻿@using Microsoft.AspNet.Identity
+
+
+
+
+<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -9,11 +14,24 @@
             @Html.ActionLink("Alex's Shop", "Index", "Home",null, new { @class = "navbar-brand" })
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav navbar-right">
-                <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                <li>@Html.ActionLink("Login", "Login", "Account")</li>
-                <li>@Html.ActionLink("Register", "Register", "Account")</li>
-            </ul>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>                           
+                            <li>@Html.ActionLink("Logged With  " + User.Identity.Name, "Index", "Home")</li>
+                            <li>@Html.ActionLink("Admin Area", "Index", "Admin")</li>
+                            
+                        </ul>
+
+                    }
+                    else
+                    {
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                            <li>@Html.ActionLink("Register", "Register", "Account")</li>
+                        </ul>
+                    }
         </div>
     </div>
 </nav>

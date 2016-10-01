@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using DemoApp.Data;
 using DemoApp.Domain;
+using DemoApp.Repository.Services;
 
 namespace DemoApp.Repository
 {
-    public class Services
+    public class MyServices : IServices
     {
         //first code lines 
 
@@ -60,8 +60,17 @@ namespace DemoApp.Repository
             }
         }
 
+        public ComponentType GetSingleComponentType(int id)
+        {
+            using (var context = new DemoAppContext())
+            {
+                var type = context.ComponentTypes.SingleOrDefault(x => x.Id == id);
+                return type;
+            }
+        }
 
-        public List<Component> GetComponetsNdTypes(int id )
+
+        public IList<Component> GetComponetsNdTypes(int id )
         {
             using (var context = new DemoAppContext())
             {
@@ -72,9 +81,13 @@ namespace DemoApp.Repository
             
         }
 
+        public decimal FinalPrice(List<ComponentType> prices)
+        {
+            decimal total = prices.Sum(x => x.Price);
+            return total;
+        }
 
-
-
+     
 
         //ending code lines 
     }

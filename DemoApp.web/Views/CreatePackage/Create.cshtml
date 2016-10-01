@@ -3,9 +3,6 @@
 @{
     ViewBag.Title = "Create";
 }
-
-@using (Html.BeginForm())
-{
     <div class="container-fluid">
 
         <div class="col-md-12">
@@ -19,15 +16,57 @@
 
                         <p>Description : @Model.Package.Description</p>
                         <p>This is your Initial Price kr. @Model.Package.InitialPrice</p>
+                        
                         @foreach (var item in Model.Component)
                         {
-                            <h2>@item.Name</h2>
-                            foreach (var items in item.ComponentTypes)
-                            {
-                               <p>@items.Name</p> 
-                            }
-                               
+                            <div class="panel panel-info">
+                                <div class="panel-heading"></div>
+                                <div class="panel-body">
+                                    <h2>@item.Name</h2>
+                                    <hr/>
+                              
+                                     
+
+                                        @foreach (var items in item.ComponentTypes)
+                                        {
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th>@Html.DisplayNameFor(model => items.Name)</th>
+                                                    <th>@Html.DisplayNameFor(model => items.Description)</th>
+                                                    <th>@Html.DisplayNameFor(model => items.Price)</th>
+                                                    <th>@Html.DisplayNameFor(model => items.DeliveryDate)</th>
+                                                    <th>@Html.DisplayNameFor(model => items.Manufacturer)</th>
+                                                    <th>@Html.Label("Choose This one ")</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>@items.Name</td>
+                                                    <td>@items.Description</td>
+                                                    <td>@items.Price</td>
+                                                    <td>@items.DeliveryDate</td>
+                                                    <td>@items.Manufacturer</td>
+                                                    <td>@Ajax.ActionLink("Add", "PreviuosCartPartialViewResult", "CreatePackage", new { id = items.Id },
+                                                        new AjaxOptions
+                                                        {
+                                                            UpdateTargetId = "MyNewPackage",
+                                                            InsertionMode = InsertionMode.Replace,
+                                                            HttpMethod = "Get",
+                                                            LoadingElementId = "imgloader",
+                                                            OnSuccess = "fnSuccess",
+                                                        })</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        }
+                                   
+                                </div>
+                            </div>
                         }
+                        
+                        <div id="MyNewPackage"></div>
+                        
                     </div>
                 
                 </div>
@@ -36,9 +75,12 @@
         </div>
     </div>
 
-}
 
 
 
+
+
+
+ 
 
 
