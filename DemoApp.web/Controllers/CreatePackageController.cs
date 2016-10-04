@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Web.Mvc;
 using DemoApp.Domain;
 using DemoApp.Repository.Services;
@@ -17,8 +20,9 @@ namespace DemoApp.web.Controllers
         }
         // GET: CreatePackage
         public ActionResult Create(int id)
-        {        
-            
+        {
+            //var listan = (List<ComponentType>) Session["MyCart"];
+            //listan.Clear();
             BuildPackage model = new BuildPackage();
             model.Package = _iservices.GetSinglePackage(id);
             model.Component = _iservices.GetComponetsNdTypes(model.Package.Id);
@@ -54,13 +58,12 @@ namespace DemoApp.web.Controllers
             else
             {
                 model.ComponentTypes = (List<ComponentType>)Session["MyCart"];
+                model.ComponentTypes.Add(ct);
             }
 
-            
-            model.ComponentTypes.Add(ct);
-            model.PreviousCost = _iservices.FinalPrice(model.ComponentTypes);
+            Session["MyCart"] = model.ComponentTypes;
 
-           Session["MyCart"] = model.ComponentTypes;
+            
 
             return PartialView("Partials/PreviousCart", model);
         }

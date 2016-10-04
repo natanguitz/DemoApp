@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using DemoApp.Data;
 using DemoApp.Domain;
 using DemoApp.Repository.Services;
@@ -77,8 +78,6 @@ namespace DemoApp.Repository
                 var list = context.Components.Where(x => x.PackageId == id).Include(x => x.ComponentTypes).ToList();
                 return list;
             }
-
-            
         }
 
         public decimal FinalPrice(List<ComponentType> prices)
@@ -86,7 +85,6 @@ namespace DemoApp.Repository
             decimal total = prices.Sum(x => x.Price);
             return total;
         }
-
      
 
         //ending code lines 

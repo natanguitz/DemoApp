@@ -15,6 +15,7 @@ namespace DemoApp.web.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            
             var packageTypes = _iservices.GetPackageTypes();
 
             return View(packageTypes);

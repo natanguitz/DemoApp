@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using DemoApp.Domain;
 
 namespace DemoApp.web.Models
@@ -13,8 +10,9 @@ namespace DemoApp.web.Models
             ComponentTypes = new List<ComponentType>();
            
         }
-        //public Package Package { get; set; }
         public List<ComponentType> ComponentTypes { get; set; }
+        public int Package { get; set; }
         public decimal PreviousCost { get; set; }
+
     }
 }
