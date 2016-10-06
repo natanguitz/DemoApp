@@ -1,7 +1,6 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Web.Mvc;
 using DemoApp.Domain;
 using DemoApp.Repository.Services;
@@ -21,27 +20,18 @@ namespace DemoApp.web.Controllers
         // GET: CreatePackage
         public ActionResult Create(int id)
         {
-            //var listan = (List<ComponentType>) Session["MyCart"];
-            //listan.Clear();
+            if ((List<ComponentType>)Session["MyCart"] != null)
+            {
+                Session["MyCart"] = _iservices.CleanList((List<ComponentType>)Session["MyCart"]);
+            }
+            
+
             BuildPackage model = new BuildPackage();
             model.Package = _iservices.GetSinglePackage(id);
             model.Component = _iservices.GetComponetsNdTypes(model.Package.Id);
+            TempData["packageid"] = model.Package;
 
             return View(model);
-        }
-
-        public PartialViewResult GetComponents(int id)
-        {
-            var comp = _iservices.GetComponent(id);
-
-            return PartialView("Partials/LisOfComponents", comp);
-        }
-
-        public PartialViewResult GetTypes(int id)
-        {
-            var typ = _iservices.GetComponentTypeList(id);
-
-            return PartialView("Partials/ListOfComponentTyes", typ);
         }
 
         [HttpGet]
@@ -53,17 +43,24 @@ namespace DemoApp.web.Controllers
 
             if ((List<ComponentType>)Session["MyCart"] == null)
             {
+                
                 model.ComponentTypes.Add(ct);
             }
             else
             {
+
                 model.ComponentTypes = (List<ComponentType>)Session["MyCart"];
-                model.ComponentTypes.Add(ct);
+
+                if (!_iservices.CheckIfExist(model.ComponentTypes, ct))
+                {
+                    model.ComponentTypes.Add(ct);
+                }               
             }
 
-            Session["MyCart"] = model.ComponentTypes;
+            model.PreviousCost = _iservices.FinalPrice(model.ComponentTypes);
+            model.Package = (Package)TempData["packageid"];
 
-            
+            Session["MyCart"] = model.ComponentTypes;
 
             return PartialView("Partials/PreviousCart", model);
         }

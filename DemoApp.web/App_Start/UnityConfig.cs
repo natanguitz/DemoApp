@@ -11,14 +11,16 @@ namespace DemoApp.web
         public static void RegisterComponents()
         {
 			var container = new UnityContainer();
+			
             
             // register all your components with the container here
             // it is NOT necessary to register your controllers
             
             container.RegisterType<Repository.Services.IServices, MyServices>();
+            container.RegisterType<Repository.Services.IOrders, OrderServices>();
 
 
-            
+
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

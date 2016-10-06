@@ -1,0 +1,22 @@
+﻿@model DemoApp.web.Models.MyCart
+ 
+
+@{
+    ViewBag.Title = "NewOrder";
+}
+
+<h2>NewOrder</h2>
+
+
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">@Model.Package.Name</div>
+        <div class="panel-body">
+            @foreach (var item in Model.ComponentTypes)
+            {
+                <p>@item.Name</p>
+            }
+        </div>
+    </div>
+</div>
+

@@ -11,8 +11,7 @@ namespace DemoApp.web.Models
            
         }
         public List<ComponentType> ComponentTypes { get; set; }
-        public int Package { get; set; }
+        public Package Package { get; set; }
         public decimal PreviousCost { get; set; }
-
     }
 }

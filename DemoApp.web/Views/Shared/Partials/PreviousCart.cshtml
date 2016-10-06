@@ -1,39 +1,51 @@
 ﻿@model DemoApp.web.Models.MyCart
 
-<div class="MyItemBox">
-    @Html.ActionLink(@Model.ComponentTypes.Count+" "+"Items","","CreatePackage", null, new {@class= "btn btn-danger"})<span class="badge"></span>
+<div class="MyItemBox">  
+        @if (Model.ComponentTypes.Count != 0)
+        {
+            using (Html.BeginForm("NewOrder","CreateOrder", FormMethod.Post))
+            {
+
+                @Html.HiddenFor(x => x.Package.Id);
+
+                <h3>Your selected items </h3>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Delivery days</th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model.ComponentTypes)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.Price</td>
+                                <td>@item.DeliveryDate.Day</td>
+                            </tr>
+                        }
+
+                        <tr>
+                            <td><strong>Your total price is Kr. @Model.PreviousCost</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total components selected : @Model.ComponentTypes.Count</strong></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input id="Submit1" type="submit" value="submit" />
+                            </td>
+                        </tr>
+                    </table>
+            }
+        }
 </div>
 
-@*<div class="well well-lg">
-        <h3>Your selected items </h3>
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th></th>
-                <th></th>
-            </tr>
-            </thead>
-            @foreach (var item in @Model.ComponentTypes)
-            {
-                <tr>
-                    <td>@item.Name</td>
-                </tr>
-            }
 
-            <tr>
-                <td></td>
-                <td></td>
-                <td>Your total price is Kr. @Model.PreviousCost</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td>Total components selected : @Model.ComponentTypes.Count</td>
-            </tr>
-        </table>
 
-    </div>*@
+
+      
 
 
           

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using DemoApp.Data;
 using DemoApp.Domain;
 using DemoApp.Repository.Services;
@@ -85,7 +84,29 @@ namespace DemoApp.Repository
             decimal total = prices.Sum(x => x.Price);
             return total;
         }
-     
+
+
+        public bool CheckIfExist(List<ComponentType> list ,ComponentType type)
+        {
+            bool check = list.Any(x => x.ComponentId == type.ComponentId);
+
+            return check;
+        }
+
+        public List<ComponentType> CleanList(List<ComponentType> list )
+        {
+            list.Clear();
+            return list;
+        }
+
+        public bool CheckItems(List<ComponentType> list)
+        {
+            bool check = list.Any(x => x.Id == 1 && x.Id == 2 && x.Id == 3);
+
+            return check;
+        }
+
+
 
         //ending code lines 
     }
