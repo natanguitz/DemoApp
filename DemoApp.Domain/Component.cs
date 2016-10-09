@@ -12,6 +12,5 @@ namespace DemoApp.Domain
         public string ImageUrl { get; set; }
 
         public List<ComponentType> ComponentTypes { get; set; }
-       
     }
 }

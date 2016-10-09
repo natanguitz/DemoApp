@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using DemoApp.Domain;
 using DemoApp.Repository.Services;
@@ -10,59 +12,98 @@ namespace DemoApp.web.Controllers
     public class CreatePackageController : Controller
     {
         private readonly IServices _iservices;
+        private readonly IOrders _iorders;
 
-        public CreatePackageController(IServices services)
+        public CreatePackageController(IServices services, IOrders iorders)
         {
             _iservices = services;
+            _iorders = iorders;
         }
+
         // GET: CreatePackage
         public ActionResult Create(int id)
-        {        
-            
-            BuildPackage model = new BuildPackage();
-            model.Package = _iservices.GetSinglePackage(id);
-            model.Component = _iservices.GetComponetsNdTypes(model.Package.Id);
-
-            return View(model);
-        }
-
-        public PartialViewResult GetComponents(int id)
         {
-            var comp = _iservices.GetComponent(id);
+            if ((List<ComponentType>) Session["MyCart"] != null)
+            {
+                Session["MyCart"] = _iservices.CleanList((List<ComponentType>) Session["MyCart"]);
+            }
 
-            return PartialView("Partials/LisOfComponents", comp);
-        }
 
-        public PartialViewResult GetTypes(int id)
-        {
-            var typ = _iservices.GetComponentTypeList(id);
+            BuildPackage buildPackage = new BuildPackage();
+            buildPackage.Package = _iservices.GetSinglePackage(id);
+            buildPackage.Component = _iservices.GetComponetsNdTypes(buildPackage.Package.Id);
+            Session["packageToSend"] = buildPackage.Package;
 
-            return PartialView("Partials/ListOfComponentTyes", typ);
+            return View(buildPackage);
         }
 
         [HttpGet]
-        public PartialViewResult PreviuosCartPartialViewResult(int id )
+        public PartialViewResult PreviuosCartPartialViewResult(int id)
         {
             var ct = _iservices.GetSingleComponentType(id);
 
-            MyCart model = new MyCart();
+            MyCart cart = new MyCart();
 
-            if ((List<ComponentType>)Session["MyCart"] == null)
+            if ((List<ComponentType>) Session["MyCart"] == null)
             {
-                model.ComponentTypes.Add(ct);
+
+                cart.ListTypes.Add(ct);
             }
             else
             {
-                model.ComponentTypes = (List<ComponentType>)Session["MyCart"];
+
+                cart.ListTypes = (List<ComponentType>) Session["MyCart"];
+
+                if (!_iservices.CheckIfExist(cart.ListTypes, ct))
+                {
+                    cart.ListTypes.Add(ct);
+                }
             }
 
-            
-            model.ComponentTypes.Add(ct);
-            model.PreviousCost = _iservices.FinalPrice(model.ComponentTypes);
+            cart.BasicPrice = _iservices.FinalPrice(cart.ListTypes);
+            cart.PackObject = (Package) Session["packageToSend"];
 
-           Session["MyCart"] = model.ComponentTypes;
+            Session["MyCart"] = cart.ListTypes;
+            TempData["MyObject"] = cart;
 
-            return PartialView("Partials/PreviousCart", model);
+            return PartialView("Partials/PreviousCart", cart);
         }
+
+        public ActionResult SendOrderViewResult(MyCart toOrderCart)
+        {
+            if (toOrderCart == null) throw new ArgumentNullException(nameof(toOrderCart));
+            toOrderCart = (MyCart) TempData["MyObject"];
+            TempData["ToOrder"] = toOrderCart;
+
+            return View("PreviosOrder", toOrderCart);
+
+        }
+
+
+        public ActionResult SaveOrder(MyCart cartData)
+        {
+            if (cartData == null) throw new ArgumentNullException(nameof(cartData));
+            cartData = (MyCart)TempData["ToOrder"];
+
+            if (ModelState.IsValid)
+            {
+                Order myOrder = new Order();
+                myOrder.Customer = User.Identity.Name;
+                myOrder.FinalPrice = _iorders.GetFinalPrice(cartData.ListTypes, cartData.PackObject.InitialPrice);
+                myOrder.OrderCode = _iorders.GetCode(cartData.ListTypes);
+                myOrder.PackageId = cartData.PackObject.Id;
+                myOrder.OrderState = OrderState.New;
+                myOrder.DeliveryDate = DateTime.Now.AddDays(_iorders.GetDeliveryDate(cartData.ListTypes));
+                _iorders.SaveOrder(myOrder);
+
+                return View("Thank_You");
+            }
+            else
+            {
+                return View("PreviosOrder", cartData);
+            }
+            
+        }
+
     }
 }

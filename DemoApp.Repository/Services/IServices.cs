@@ -20,6 +20,10 @@ namespace DemoApp.Repository.Services
         IList<Component> GetComponetsNdTypes(int id);
 
         decimal FinalPrice(List<ComponentType> prices);
+        bool CheckIfExist(List<ComponentType> list, ComponentType type);
+        List<ComponentType> CleanList(List<ComponentType> list);
+
+        bool CheckItems(List<ComponentType> list );
 
     }
 }

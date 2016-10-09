@@ -13,7 +13,7 @@ namespace DemoApp.Data.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled  = false;
         }
 
         protected override void Seed(DemoApp.Data.DemoAppContext context)
@@ -37,6 +37,7 @@ namespace DemoApp.Data.Migrations
                     Email = "fredrik@kodmentor.se", FirstName = "Alexander", LastName = "Guitz", CompanyName = "Nackademin", DeliveryAdress = "Stockholm gatan 1"};
                 userManager.Create(user, "P@ssw0rd"); userManager.AddToRole(user.Id, "admins");
             }
+
         }
     }
     

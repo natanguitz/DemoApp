@@ -1,79 +1,87 @@
-﻿@model DemoApp.web.Models.BuildPackage
+﻿@using DemoApp.web.Models
+@model DemoApp.web.Models.BuildPackage
 
 @{
     ViewBag.Title = "Create";
 }
-    <div class="container-fluid">
+<div class="container-fluid">
 
-        <div class="col-md-12">
-            <div class="row">
-                <h1>Let's Start Build Your Package</h1>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3>Package Name : @Model.Package.Name</h3>
-                    </div>
-                    <div class="panel-body">
+    <div class="col-md-8">
+        <div class="row">
+            <h1>Let's Start Build Your Package</h1>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3>Package Name : @Model.Package.Name</h3>
+                </div>
+                <div class="panel-body Relative">
 
-                        <p>Description : @Model.Package.Description</p>
-                        <p>This is your Initial Price kr. @Model.Package.InitialPrice</p>
+                    <p>Description : @Model.Package.Description</p>
+                    <p>This is your Initial Price kr. @Model.Package.InitialPrice</p>
                         
-                        @foreach (var item in Model.Component)
-                        {
-                            <div class="panel panel-info">
-                                <div class="panel-heading"></div>
-                                <div class="panel-body">
-                                    <h2>@item.Name</h2>
-                                    <hr/>
+                    @foreach (var item in Model.Component)
+                    {
+                        <div class="panel panel-info">
+                            <div class="panel-heading"></div>
+                            <div class="panel-body">
+                                <h2>@item.Name</h2>
+                                    
+                                <hr/>
                               
                                      
 
-                                        @foreach (var items in item.ComponentTypes)
-                                        {
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                <tr>
-                                                    <th>@Html.DisplayNameFor(model => items.Name)</th>
-                                                    <th>@Html.DisplayNameFor(model => items.Description)</th>
-                                                    <th>@Html.DisplayNameFor(model => items.Price)</th>
-                                                    <th>@Html.DisplayNameFor(model => items.DeliveryDate)</th>
-                                                    <th>@Html.DisplayNameFor(model => items.Manufacturer)</th>
-                                                    <th>@Html.Label("Choose This one ")</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>@items.Name</td>
-                                                    <td>@items.Description</td>
-                                                    <td>@items.Price</td>
-                                                    <td>@items.DeliveryDate</td>
-                                                    <td>@items.Manufacturer</td>
-                                                    <td>@Ajax.ActionLink("Add", "PreviuosCartPartialViewResult", "CreatePackage", new { id = items.Id },
-                                                        new AjaxOptions
-                                                        {
-                                                            UpdateTargetId = "MyNewPackage",
-                                                            InsertionMode = InsertionMode.Replace,
-                                                            HttpMethod = "Get",
-                                                            LoadingElementId = "imgloader",
-                                                            OnSuccess = "fnSuccess",
-                                                        })</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        }
+                                @foreach (var items in item.ComponentTypes)
+                                {
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>@Html.DisplayNameFor(model => items.Name)</th>
+                                            <th>@Html.DisplayNameFor(model => items.Description)</th>
+                                            <th>@Html.DisplayNameFor(model => items.Price)</th>
+                                            <th>@Html.DisplayNameFor(model => items.DeliveryDate.Day)</th>
+                                            <th>@Html.DisplayNameFor(model => items.Manufacturer)</th>
+                                            <th>@Html.Label("Choose This one ")</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>@items.Name</td>
+                                            <td>@items.Description</td>
+                                            <td>@items.Price</td>
+                                            <td>@items.DeliveryDate</td>
+                                            <td>@items.Manufacturer</td>
+                                            <td>@Ajax.ActionLink("Add", "PreviuosCartPartialViewResult", "CreatePackage", new { id = items.Id },
+                                                    new AjaxOptions
+                                                    {
+                                                        UpdateTargetId = "MyNewPackage",
+                                                        InsertionMode = InsertionMode.Replace,
+                                                        HttpMethod = "Get",
+                                                        LoadingElementId = "imgloader",
+                                                        OnSuccess = "fnSuccess",
+                                                    })</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                }
                                    
-                                </div>
                             </div>
-                        }
+                        </div>
+                    }
                         
-                        <div id="MyNewPackage"></div>
-                        
-                    </div>
-                
                 </div>
+                
             </div>
+        </div>
 
+    </div>
+    
+    <div id="MyNewPackage" class="col-md-4 MyCart">
+        <div class="col-md-4">
+            @Html.Partial("Partials/PreviousCart", new MyCart())
         </div>
     </div>
+        
+
+</div>
 
 
 

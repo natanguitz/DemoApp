@@ -60,30 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DemoAppContext.cs" />
-    <Compile Include="Migrations\201609211240384_initial.cs" />
-    <Compile Include="Migrations\201609211240384_initial.Designer.cs">
-      <DependentUpon>201609211240384_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609211253415_identityAdded.cs" />
-    <Compile Include="Migrations\201609211253415_identityAdded.Designer.cs">
-      <DependentUpon>201609211253415_identityAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609220951384_idag.cs" />
-    <Compile Include="Migrations\201609220951384_idag.Designer.cs">
-      <DependentUpon>201609220951384_idag.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609221139320_packageidchanged.cs" />
-    <Compile Include="Migrations\201609221139320_packageidchanged.Designer.cs">
-      <DependentUpon>201609221139320_packageidchanged.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609271128453_finalPriceDelPackage.cs" />
-    <Compile Include="Migrations\201609271128453_finalPriceDelPackage.Designer.cs">
-      <DependentUpon>201609271128453_finalPriceDelPackage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609271303592_listcomptypesadded.cs" />
-    <Compile Include="Migrations\201609271303592_listcomptypesadded.Designer.cs">
-      <DependentUpon>201609271303592_listcomptypesadded.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -98,26 +74,6 @@
       <Project>{095a1e7b-6fd7-4f14-8440-9849cae0df7b}</Project>
       <Name>DemoApp.Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609211240384_initial.resx">
-      <DependentUpon>201609211240384_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609211253415_identityAdded.resx">
-      <DependentUpon>201609211253415_identityAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609220951384_idag.resx">
-      <DependentUpon>201609220951384_idag.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609221139320_packageidchanged.resx">
-      <DependentUpon>201609221139320_packageidchanged.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609271128453_finalPriceDelPackage.resx">
-      <DependentUpon>201609271128453_finalPriceDelPackage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609271303592_listcomptypesadded.resx">
-      <DependentUpon>201609271303592_listcomptypesadded.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

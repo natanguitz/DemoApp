@@ -77,8 +77,6 @@ namespace DemoApp.Repository
                 var list = context.Components.Where(x => x.PackageId == id).Include(x => x.ComponentTypes).ToList();
                 return list;
             }
-
-            
         }
 
         public decimal FinalPrice(List<ComponentType> prices)
@@ -87,7 +85,28 @@ namespace DemoApp.Repository
             return total;
         }
 
-     
+
+        public bool CheckIfExist(List<ComponentType> list ,ComponentType type)
+        {
+            bool check = list.Any(x => x.ComponentId == type.ComponentId);
+
+            return check;
+        }
+
+        public List<ComponentType> CleanList(List<ComponentType> list )
+        {
+            list.Clear();
+            return list;
+        }
+
+        public bool CheckItems(List<ComponentType> list)
+        {
+            bool check = list.Any(x => x.Id == 1 && x.Id == 2 && x.Id == 3);
+
+            return check;
+        }
+
+
 
         //ending code lines 
     }

@@ -18,9 +18,31 @@
       margin-bottom: 30px;
   }
 
-  .MyWell {
-      position: absolute;
-      margin-bottom: 0;
+.MyImage {
+    width: 100%;
+    overflow: hidden;
+    padding: 10px;
+}
+
+
+
+.MyImage img {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+
+.MyItemBox {
+     position: fixed;
+    top: 250px;
+  }
+  .Relative {
+      position: relative;
+  }
+
+  .nopadding {
+      padding: 0;
   }
 
 

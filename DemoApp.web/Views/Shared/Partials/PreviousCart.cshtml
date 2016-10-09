@@ -1,39 +1,43 @@
 ﻿@model DemoApp.web.Models.MyCart
 
-    
-<div class="container-fluid">
-    <div class="col-md-12">
-        <div class="row">
-            <div class="well well-lg">
-                <h3>Your selected items </h3>
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    @foreach (var item in @Model.ComponentTypes)
-                    {
-                        <tr>
-                            <td>@item.Name</td>
-                        </tr>
-                    }
-                    
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td>Your total price is Kr. @Model.PreviousCost</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td>Total components selected : @Model.ComponentTypes.Count</td>
-                    </tr>
-                </table>
+<div class="MyItemBox">  
+        @if (Model.ListTypes.Count != 0)
+        {
+            using (Html.BeginForm("SendOrderViewResult","CreatePackage", FormMethod.Post))
+            {
 
-            </div>
-        </div>
-    </div>
+                @Html.HiddenFor(x => x.PackObject.Id)
+
+                <h3>Your selected items </h3>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Delivery days</th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model.ListTypes)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.Price</td>
+                                <td>@item.DeliveryDate.Day</td>
+                            </tr>
+                        }
+
+                        <tr>
+                            <td><strong>Your total price is Kr. @Model.BasicPrice</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total components selected : @Model.ListTypes.Count</strong></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input id="Submit1" type="submit" value="submit" />
+                            </td>
+                        </tr>
+                    </table>
+            }
+        }
 </div>
