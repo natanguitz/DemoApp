@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DemoApp.Domain;
 
 namespace DemoApp.Repository.Services
@@ -10,10 +11,10 @@ namespace DemoApp.Repository.Services
         string GetCode(List<ComponentType> list);
         decimal GetFinalPrice(List<ComponentType> list , decimal packagePrice );
 
-        Package GetSinglePackage(int id);
+        //Package GetSinglePackage(int id);
 
-        int GetSinglePackageId(int id);
+        //int GetSinglePackageId(int id);
 
-
+        int GetDeliveryDate( List<ComponentType> list );
     }
 }

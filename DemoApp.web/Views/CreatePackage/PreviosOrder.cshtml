@@ -5,21 +5,54 @@
     ViewBag.Title = "Previos Order";
 }
 
-<div class="container-fluid">
-    <div class="panel panel-primary">
-        <div class="panel-heading">@Html.DisplayFor(x => x.PackObject.Name)</div>
-        <div class="panel-body">
-            <div>
-                <h2>@Html.DisplayFor(x => x.PackObject.InitialPrice)</h2>
-                <h2>@Html.DisplayFor(x => x.PackObject.Description)</h2>
-            </div>
+@using (Html.BeginForm("SaveOrder", "CreatePackage", FormMethod.Post))
+{
+    <div class="container-fluid">
 
-            @foreach (var item in Model.ListTypes)
-            {
-                <p>@item.Name</p>
-                <p>@item.Price Kr.</p>
-                <p>@item.Description</p>
-            }
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h1>You Choose: @Html.DisplayFor(x => x.PackObject.Name)</h1>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <h2>Initial price : Kr. @Html.DisplayFor(x => x.PackObject.InitialPrice)</h2>
+                    <h2>@Html.DisplayFor(x => x.PackObject.Description)</h2>
+                </div>
+
+                <h3>The items you will get</h3>
+
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>@Html.Label("Name")</th>
+                        <th>@Html.Label("Description")</th>
+                        <th>@Html.Label("Manufacturer")</th>
+                        <th>@Html.Label("Delivery Date")</th>
+                        <th>@Html.Label("Unit Price")</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model.ListTypes)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Description</td>
+                            <td>@item.Manufacturer</td>
+                            <td>@item.DeliveryDate</td>
+                            <td>Kr. @item.Price</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+
+                <input id="Submit1" type="submit" value="submit" />
+
+
+            </div>
         </div>
     </div>
-</div>
+
+
+}
+
+

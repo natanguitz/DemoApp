@@ -14,9 +14,10 @@ namespace DemoApp.Repository
         public void SaveOrder(Order order)
         {
             Order neworder = new Order();
+            neworder.Customer = order.Customer;
             neworder.OrderCode = order.OrderCode;
             neworder.DeliveryDate = order.DeliveryDate;
-            neworder.Package = order.Package;
+            neworder.PackageId = order.PackageId;
             neworder.FinalPrice = order.FinalPrice;
 
             using (var context = new DemoAppContext())
@@ -32,7 +33,7 @@ namespace DemoApp.Repository
 
             foreach (var type in list)
             {
-                code += type.Name;
+                code += type.TypeCode;
             }
 
             return code;
@@ -50,21 +51,39 @@ namespace DemoApp.Repository
             return price;
         }
 
-        public Package GetSinglePackage(int id)
-        {
-            using (var context = new DemoAppContext())
-            {
-                var package = context.Packages.SingleOrDefault(x => x.Id == id);
-                return package;
-            }
-        }
+        //public Package GetSinglePackage(int id)
+        //{
+        //    using (var context = new DemoAppContext())
+        //    {
+        //        var package = context.Packages.SingleOrDefault(x => x.Id == id);
+        //        return package;
+        //    }
+        //}
 
-        public int GetSinglePackageId(int id)
+        //public int GetSinglePackageId(int id)
+        //{
+        //    using (var context = new DemoAppContext())
+        //    {
+        //        var pc = context.Packages.SingleOrDefault(x => x.Id == id);
+        //        return pc.Id;
+        //    }
+        //}
+
+        public int GetDeliveryDate(List<ComponentType> list)
         {
-            using (var context = new DemoAppContext())
+            var today = DateTime.Now.Day;
+            var fixedList = list.OrderByDescending(x => x.DeliveryDate.Day);
+            var lastDay = fixedList.FirstOrDefault();
+
+
+            if (lastDay != null)
             {
-                var pc = context.Packages.SingleOrDefault(x => x.Id == id);
-                return pc.Id;
+                var days = today - lastDay.DeliveryDate.Day;
+                return days;
+            }
+            else
+            {
+                return DateTime.Now.Day;
             }
         }
     }

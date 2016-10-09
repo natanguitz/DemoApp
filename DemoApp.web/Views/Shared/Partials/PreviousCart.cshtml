@@ -3,7 +3,7 @@
 <div class="MyItemBox">  
         @if (Model.ListTypes.Count != 0)
         {
-            using (Html.BeginForm("TestActionResult","CreatePackage", FormMethod.Post))
+            using (Html.BeginForm("SendOrderViewResult","CreatePackage", FormMethod.Post))
             {
 
                 @Html.HiddenFor(x => x.PackObject.Id)

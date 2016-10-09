@@ -199,12 +199,11 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\test.cshtml" />
     <Content Include="Views\CreatePackage\Create.cshtml" />
-    <Content Include="Views\Shared\Partials\LisOfComponents.cshtml" />
-    <Content Include="Views\Shared\Partials\ListOfComponentTyes.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\Partials\PreviousCart.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\CreatePackage\PreviosOrder.cshtml" />
+    <Content Include="Views\CreatePackage\Thank_You.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
