@@ -18,14 +18,19 @@
       margin-bottom: 30px;
   }
 
-  .MyCart {
-     
-      /*position: fixed;
-      top: 100px;
-      left: 0;
-      -ms-border-radius: 50%;
-      border-radius: 50%;*/
-  }
+.MyImage {
+    width: 100%;
+    overflow: hidden;
+    padding: 10px;
+}
+
+
+
+.MyImage img {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
 
 
 .MyItemBox {
