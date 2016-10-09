@@ -7,11 +7,11 @@ namespace DemoApp.web.Models
     {
         public MyCart()
         {
-            ComponentTypes = new List<ComponentType>();
+            ListTypes = new List<ComponentType>();
            
         }
-        public List<ComponentType> ComponentTypes { get; set; }
-        public Package Package { get; set; }
-        public decimal PreviousCost { get; set; }
+        public List<ComponentType> ListTypes { get; set; }
+        public Package PackObject { get; set; }
+        public decimal BasicPrice { get; set; }
     }
 }

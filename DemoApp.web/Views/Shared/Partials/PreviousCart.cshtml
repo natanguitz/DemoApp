@@ -1,12 +1,12 @@
 ﻿@model DemoApp.web.Models.MyCart
 
 <div class="MyItemBox">  
-        @if (Model.ComponentTypes.Count != 0)
+        @if (Model.ListTypes.Count != 0)
         {
-            using (Html.BeginForm("NewOrder","CreateOrder", FormMethod.Post))
+            using (Html.BeginForm("TestActionResult","CreatePackage", FormMethod.Post))
             {
 
-                @Html.HiddenFor(x => x.Package.Id);
+                @Html.HiddenFor(x => x.PackObject.Id)
 
                 <h3>Your selected items </h3>
                     <table class="table table-bordered">
@@ -17,7 +17,7 @@
                                 <th>Delivery days</th>
                             </tr>
                         </thead>
-                        @foreach (var item in Model.ComponentTypes)
+                        @foreach (var item in Model.ListTypes)
                         {
                             <tr>
                                 <td>@item.Name</td>
@@ -27,10 +27,10 @@
                         }
 
                         <tr>
-                            <td><strong>Your total price is Kr. @Model.PreviousCost</strong></td>
+                            <td><strong>Your total price is Kr. @Model.BasicPrice</strong></td>
                         </tr>
                         <tr>
-                            <td><strong>Total components selected : @Model.ComponentTypes.Count</strong></td>
+                            <td><strong>Total components selected : @Model.ListTypes.Count</strong></td>
                         </tr>
                         <tr>
                             <td>
@@ -41,12 +41,3 @@
             }
         }
 </div>
-
-
-
-
-      
-
-
-          
-  

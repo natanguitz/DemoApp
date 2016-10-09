@@ -1,0 +1,25 @@
+﻿@model DemoApp.web.Models.MyCart
+
+
+@{
+    ViewBag.Title = "Previos Order";
+}
+
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">@Html.DisplayFor(x => x.PackObject.Name)</div>
+        <div class="panel-body">
+            <div>
+                <h2>@Html.DisplayFor(x => x.PackObject.InitialPrice)</h2>
+                <h2>@Html.DisplayFor(x => x.PackObject.Description)</h2>
+            </div>
+
+            @foreach (var item in Model.ListTypes)
+            {
+                <p>@item.Name</p>
+                <p>@item.Price Kr.</p>
+                <p>@item.Description</p>
+            }
+        </div>
+    </div>
+</div>

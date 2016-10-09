@@ -26,12 +26,12 @@ namespace DemoApp.web.Controllers
             }
             
 
-            BuildPackage model = new BuildPackage();
-            model.Package = _iservices.GetSinglePackage(id);
-            model.Component = _iservices.GetComponetsNdTypes(model.Package.Id);
-            TempData["packageid"] = model.Package;
+            BuildPackage buildPackage = new BuildPackage();
+            buildPackage.Package = _iservices.GetSinglePackage(id);
+            buildPackage.Component = _iservices.GetComponetsNdTypes(buildPackage.Package.Id);
+            Session["packageToSend"] = buildPackage.Package;
 
-            return View(model);
+            return View(buildPackage);
         }
 
         [HttpGet]
@@ -39,30 +39,40 @@ namespace DemoApp.web.Controllers
         {
             var ct = _iservices.GetSingleComponentType(id);
 
-            MyCart model = new MyCart();
+            MyCart cart = new MyCart();
 
             if ((List<ComponentType>)Session["MyCart"] == null)
             {
                 
-                model.ComponentTypes.Add(ct);
+                cart.ListTypes.Add(ct);
             }
             else
             {
 
-                model.ComponentTypes = (List<ComponentType>)Session["MyCart"];
+                cart.ListTypes = (List<ComponentType>)Session["MyCart"];
 
-                if (!_iservices.CheckIfExist(model.ComponentTypes, ct))
+                if (!_iservices.CheckIfExist(cart.ListTypes, ct))
                 {
-                    model.ComponentTypes.Add(ct);
+                    cart.ListTypes.Add(ct);
                 }               
             }
 
-            model.PreviousCost = _iservices.FinalPrice(model.ComponentTypes);
-            model.Package = (Package)TempData["packageid"];
+            cart.BasicPrice = _iservices.FinalPrice(cart.ListTypes);
+            cart.PackObject = (Package)Session["packageToSend"];
 
-            Session["MyCart"] = model.ComponentTypes;
+            Session["MyCart"] = cart.ListTypes;
+            TempData["MyObject"] = cart;
 
-            return PartialView("Partials/PreviousCart", model);
+            return PartialView("Partials/PreviousCart", cart);
+        }
+
+        public ActionResult TestActionResult(MyCart toOrderCart)
+        {
+            if (toOrderCart == null) throw new ArgumentNullException(nameof(toOrderCart));
+            toOrderCart = (MyCart)TempData["MyObject"];
+
+            return View("PreviosOrder", toOrderCart);
+            
         }
     }
 }
