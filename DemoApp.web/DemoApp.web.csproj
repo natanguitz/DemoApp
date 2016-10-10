@@ -206,6 +206,8 @@
     <Content Include="Views\Admin\AdminIndex.cshtml" />
     <Content Include="Views\Admin\NewPackageType.cshtml" />
     <Content Include="Views\Admin\ThankYou.cshtml" />
+    <Content Include="Views\Admin\NewPackage.cshtml" />
+    <Content Include="Views\Admin\NewComponent.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
