@@ -37,8 +37,12 @@
      position: fixed;
     top: 250px;
   }
-  .Relative {
-      position: relative;
+  .WithPadding {
+      padding: 20px;
+  }
+
+  .MyJumbotron {
+      background-color: #eee !important;
   }
 
   .nopadding {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using DemoApp.Domain;
 using DemoApp.Repository.Services;
@@ -73,6 +72,7 @@ namespace DemoApp.web.Controllers
         {
             if (toOrderCart == null) throw new ArgumentNullException(nameof(toOrderCart));
             toOrderCart = (MyCart) TempData["MyObject"];
+            toOrderCart.FinalPrice = _iorders.GetFinalPrice(toOrderCart.ListTypes, toOrderCart.PackObject.InitialPrice);
             TempData["ToOrder"] = toOrderCart;
 
             return View("PreviosOrder", toOrderCart);

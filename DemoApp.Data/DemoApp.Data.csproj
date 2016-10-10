@@ -60,6 +60,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DemoAppContext.cs" />
+    <Compile Include="Migrations\201610101120274_initial.cs" />
+    <Compile Include="Migrations\201610101120274_initial.Designer.cs">
+      <DependentUpon>201610101120274_initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -74,6 +78,11 @@
       <Project>{095a1e7b-6fd7-4f14-8440-9849cae0df7b}</Project>
       <Name>DemoApp.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201610101120274_initial.resx">
+      <DependentUpon>201610101120274_initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

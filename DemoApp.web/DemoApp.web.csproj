@@ -201,9 +201,11 @@
     <Content Include="Views\CreatePackage\Create.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\Partials\PreviousCart.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\CreatePackage\PreviosOrder.cshtml" />
     <Content Include="Views\CreatePackage\Thank_You.cshtml" />
+    <Content Include="Views\Admin\AdminIndex.cshtml" />
+    <Content Include="Views\Admin\NewPackageType.cshtml" />
+    <Content Include="Views\Admin\ThankYou.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

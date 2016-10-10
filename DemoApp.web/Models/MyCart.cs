@@ -13,5 +13,7 @@ namespace DemoApp.web.Models
         public List<ComponentType> ListTypes { get; set; }
         public Package PackObject { get; set; }
         public decimal BasicPrice { get; set; }
+
+        public decimal FinalPrice { get; set; }
     }
 }

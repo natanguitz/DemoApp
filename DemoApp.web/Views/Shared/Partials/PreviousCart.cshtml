@@ -27,14 +27,14 @@
                         }
 
                         <tr>
-                            <td><strong>Your total price is Kr. @Model.BasicPrice</strong></td>
+                            <td><strong>Your cart total:  Kr. @Model.BasicPrice</strong></td>
                         </tr>
                         <tr>
-                            <td><strong>Total components selected : @Model.ListTypes.Count</strong></td>
+                            <td><strong>Total items in cart: @Model.ListTypes.Count</strong></td>
                         </tr>
                         <tr>
                             <td>
-                                <input id="Submit1" type="submit" value="submit" />
+                                <button class="btn btn-danger" type="submit">Checkoutr</button>
                             </td>
                         </tr>
                     </table>
