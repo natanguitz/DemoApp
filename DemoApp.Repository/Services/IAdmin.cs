@@ -12,8 +12,11 @@ namespace DemoApp.Repository.Services
     {
         void SaveNewPackageType(string name);
         List<SelectListItem> PackageTypeItems();
-        List<SelectListItem> PackageItems();
+        List<Package> PackageItems();
+        List<SelectListItem> ComponentItems(int? id);
         void CreateAPackage(Package package);
         void CreateComponent(Component component);
+        List<Component> GetComponents(int id);
+        void SaveNewComponentType(ComponentType type);
     }
 }

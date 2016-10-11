@@ -208,6 +208,9 @@
     <Content Include="Views\Admin\ThankYou.cshtml" />
     <Content Include="Views\Admin\NewPackage.cshtml" />
     <Content Include="Views\Admin\NewComponent.cshtml" />
+    <Content Include="Views\Admin\NewComponentType.cshtml" />
+    <Content Include="Views\Shared\Partials\GetComponentsView.cshtml" />
+    <Content Include="Views\Shared\Partials\ComponentTypeForm.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,34 @@
+﻿@using DemoApp.Domain
+@model DemoApp.Domain.ComponentType
+
+@{
+    ViewBag.Title = "NewComponentType";
+}
+<div class="row">
+    <div class="col-md-4">
+        @foreach (var item in (List<Package>)ViewBag.items)
+        {
+
+            <p>
+                @Ajax.ActionLink(item.Name, "GetComponent", "Admin", new { id = item.Id },
+                new AjaxOptions
+                {
+                    UpdateTargetId = "ShowComponents",
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "Get",
+                    LoadingElementId = "imgloader",
+                    OnSuccess = "fnSuccess",
+                }, new { @class = "btn btn-lg" })
+            </p>
+        }
+    </div>
+    <div class="col-md-4" id="ShowComponents">
+        
+    </div>
+    <div class="col-md-4" id="ShowForm">
+
+    </div>
+</div>
+
+
+

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using DemoApp.Domain;
 using DemoApp.Repository.Services;
@@ -56,12 +57,30 @@ namespace DemoApp.web.Controllers
 
         public ActionResult NewComponentType()
         {
+            ViewBag.items = _iservices.PackageItems();
             return View();
         }
         [HttpPost]
         public ActionResult NewComponentType(ComponentType type)
         {
+            
+            type.ComponentId = (int) TempData["ComponentId"];
+            _iservices.SaveNewComponentType(type);
+
             return View("ThankYou");
+        }
+
+        public  PartialViewResult GetComponent(int id)
+        {
+            List<Component> model = _iservices.GetComponents(id);
+            return PartialView("Partials/GetComponentsView", model);
+        }
+
+        public PartialViewResult ShowFormPartialViewResult(int id)
+        {
+            TempData["ComponentId"] = id;
+            
+            return PartialView("Partials/ComponentTypeForm");
         }
     }
 }
