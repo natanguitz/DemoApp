@@ -19,10 +19,11 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>                           
                             <li>@Html.ActionLink("Logged With  " + User.Identity.Name, "Index", "Home")</li>
-                            <li>@Html.ActionLink("Admin Area", "Index", "Admin")</li>
-                            
+                            @if (User.IsInRole("admins"))
+                            {
+                                <li>@Html.ActionLink("Admin Area", "AdminIndex", "Admin")</li>
+                            }                
                         </ul>
-
                     }
                     else
                     {

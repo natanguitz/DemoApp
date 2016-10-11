@@ -18,6 +18,7 @@ namespace DemoApp.web
             
             container.RegisterType<Repository.Services.IServices, MyServices>();
             container.RegisterType<Repository.Services.IOrders, OrderServices>();
+            container.RegisterType<Repository.Services.IAdmin, AdminServices>();
 
 
 

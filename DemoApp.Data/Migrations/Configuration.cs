@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DemoApp.Domain;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -18,7 +19,6 @@ namespace DemoApp.Data.Migrations
 
         protected override void Seed(DemoApp.Data.DemoAppContext context)
         {
-
             //Seed database with an admin user and role. 
 
             if (!context.Roles.Any(r => r.Name == "admins"))

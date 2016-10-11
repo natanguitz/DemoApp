@@ -10,11 +10,6 @@ namespace DemoApp.Repository.Services
 
         string GetCode(List<ComponentType> list);
         decimal GetFinalPrice(List<ComponentType> list , decimal packagePrice );
-
-        //Package GetSinglePackage(int id);
-
-        //int GetSinglePackageId(int id);
-
         int GetDeliveryDate( List<ComponentType> list );
     }
 }
