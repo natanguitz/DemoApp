@@ -175,6 +175,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CreatePackageController.cs" />
+    <Compile Include="Controllers\EditController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -211,6 +212,10 @@
     <Content Include="Views\Admin\NewComponentType.cshtml" />
     <Content Include="Views\Shared\Partials\GetComponentsView.cshtml" />
     <Content Include="Views\Shared\Partials\ComponentTypeForm.cshtml" />
+    <Content Include="Views\Edit\EditHome.cshtml" />
+    <Content Include="Views\Edit\EditPackage.cshtml" />
+    <Content Include="Views\Edit\PackageEditForm.cshtml" />
+    <Content Include="Views\Edit\ThankYou.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
