@@ -122,5 +122,22 @@ namespace DemoApp.Repository
 
             
         }
+
+        public List<SelectListItem> PackageItemsList()
+      {
+
+             using (var context = new DemoAppContext())
+         {
+                 var list = context.Packages.ToList();
+
+                 List<SelectListItem> items = new List<SelectListItem>();
+                 foreach (var package in list)
+                 {
+                     items.Add(new SelectListItem { Text = package.Name, Value = package.Id.ToString() });
+                 }
+                 return items;
+             }
+         }
+ 
     }
 }

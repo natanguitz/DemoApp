@@ -93,7 +93,7 @@ namespace DemoApp.web.Controllers
                 myOrder.OrderCode = _iorders.GetCode(cartData.ListTypes);
                 myOrder.PackageId = cartData.PackObject.Id;
                 myOrder.OrderState = OrderState.New;
-                myOrder.DeliveryDate = DateTime.Now.AddDays(_iorders.GetDeliveryDate(cartData.ListTypes));
+                myOrder.DeliveryDate = _iorders.GetDeliveryDate(cartData.ListTypes);
                 _iorders.SaveOrder(myOrder);
 
                 return View("Thank_You");

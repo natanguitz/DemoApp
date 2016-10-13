@@ -2,9 +2,9 @@
 {
     public enum OrderState
     {
-        New = 1,
-        InProcess = 2,
-        Cancel = 3,
-        Delivered = 4
+        New = 0,
+        InProcess = 1,
+        Cancel = 2,
+        Delivered = 3
     }
 }

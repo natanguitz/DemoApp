@@ -69,22 +69,13 @@ namespace DemoApp.Repository
         //    }
         //}
 
-        public int GetDeliveryDate(List<ComponentType> list)
+        public DateTime GetDeliveryDate(List<ComponentType> list)
         {
-            var today = DateTime.Now.Day;
-            var fixedList = list.OrderByDescending(x => x.DeliveryDate.Day);
-            var lastDay = fixedList.FirstOrDefault();
+            
+            var fixedList = list.OrderByDescending(x => x.DeliveryDate).First();
 
+            return fixedList.DeliveryDate;
 
-            if (lastDay != null)
-            {
-                var days = today - lastDay.DeliveryDate.Day;
-                return days;
-            }
-            else
-            {
-                return DateTime.Now.Day;
-            }
         }
     }
 }

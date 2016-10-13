@@ -21,6 +21,8 @@ namespace DemoApp.web.Controllers
         {
             return View();
         }
+
+
         public ActionResult NewPackageType()
         {
 
@@ -32,6 +34,8 @@ namespace DemoApp.web.Controllers
             _iservices.SaveNewPackageType(name);
             return View("ThankYou");
         }
+
+
         public ActionResult NewPackage()
         {
             ViewBag.items = _iservices.PackageTypeItems();
@@ -43,9 +47,11 @@ namespace DemoApp.web.Controllers
             _iservices.CreateAPackage(package);
             return View("ThankYou");
         }
+
+
         public ActionResult NewComponent()
         {
-            ViewBag.items = _iservices.PackageItems();
+            ViewBag.items = _iservices.PackageItemsList();
             return View();
         }
         [HttpPost]
@@ -55,11 +61,13 @@ namespace DemoApp.web.Controllers
             return View("ThankYou");
         }
 
+
         public ActionResult NewComponentType()
         {
             ViewBag.items = _iservices.PackageItems();
             return View();
         }
+
         [HttpPost]
         public ActionResult NewComponentType(ComponentType type)
         {
@@ -69,6 +77,7 @@ namespace DemoApp.web.Controllers
 
             return View("ThankYou");
         }
+
 
         public  PartialViewResult GetComponent(int id)
         {
@@ -82,5 +91,6 @@ namespace DemoApp.web.Controllers
             
             return PartialView("Partials/ComponentTypeForm");
         }
+
     }
 }

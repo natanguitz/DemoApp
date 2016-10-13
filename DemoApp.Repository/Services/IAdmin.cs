@@ -18,5 +18,6 @@ namespace DemoApp.Repository.Services
         void CreateComponent(Component component);
         List<Component> GetComponents(int id);
         void SaveNewComponentType(ComponentType type);
+        List<SelectListItem> PackageItemsList();
     }
 }

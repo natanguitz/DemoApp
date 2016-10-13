@@ -60,9 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DemoAppContext.cs" />
-    <Compile Include="Migrations\201610101120274_initial.cs" />
-    <Compile Include="Migrations\201610101120274_initial.Designer.cs">
-      <DependentUpon>201610101120274_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201610131211011_initial.cs" />
+    <Compile Include="Migrations\201610131211011_initial.Designer.cs">
+      <DependentUpon>201610131211011_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,8 +80,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610101120274_initial.resx">
-      <DependentUpon>201610101120274_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610131211011_initial.resx">
+      <DependentUpon>201610131211011_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
