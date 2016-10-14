@@ -1,0 +1,21 @@
+﻿@model List<DemoApp.Domain.Component>
+   
+@if (Model != null)
+{
+    <h1>@ViewBag.packname</h1>
+    foreach (var item in Model)
+    {
+        <p>
+            @Ajax.ActionLink(item.Name, "ShowFormPartialViewResult", "Admin", new { id = item.Id },
+                new AjaxOptions
+                {
+                    UpdateTargetId = "ShowForm",
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "Get",
+                    LoadingElementId = "imgloader",
+                    OnSuccess = "fnSuccess",
+                }, new { @class = "btn btn-lg" })
+        </p>
+    }
+
+}

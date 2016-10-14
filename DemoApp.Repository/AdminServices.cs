@@ -7,6 +7,7 @@ using DemoApp.Data;
 using DemoApp.Domain;
 using DemoApp.Repository.Services;
 using System.Collections;
+using System.Data.Entity;
 using System.Web.Mvc;
 
 namespace DemoApp.Repository
@@ -38,15 +39,26 @@ namespace DemoApp.Repository
             }
         }
 
-        public List<SelectListItem> PackageItems()
+        public List<Package> PackageItems()
         {
             using (var context = new DemoAppContext())
             {
                 var list = context.Packages.ToList();
+                
+                
+                return list;
+            }
+        }
+
+        public List<SelectListItem> ComponentItems(int? id)
+        {
+            using (var context = new DemoAppContext())
+            {
+                var list = context.Components.Where(x => x.Id == id).ToList();
                 List<SelectListItem> items = new List<SelectListItem>();
-                foreach (var package in list)
+                foreach (var type in list)
                 {
-                    items.Add(new SelectListItem { Text = package.Name, Value = package.Id.ToString() });
+                    items.Add(new SelectListItem { Text = type.Name, Value = type.Id.ToString() });
                 }
                 return items;
             }
@@ -79,5 +91,53 @@ namespace DemoApp.Repository
                 context.SaveChanges();
             }   
         }
+
+        public List<Component> GetComponents(int id)
+        {
+            using (var context = new DemoAppContext())
+            {
+                var list = context.Components.Where(x => x.PackageId == id).ToList();
+                return list;
+            }
+        }
+
+        public void SaveNewComponentType(ComponentType type)
+        {
+            using (var context = new DemoAppContext())
+            {
+                ComponentType model = new ComponentType();
+                model.ComponentId = type.ComponentId;
+                model.DeliveryDate = type.DeliveryDate;
+                model.Description = type.Description;
+                model.ImageUrl = type.ImageUrl;
+                model.Manufacturer = type.Manufacturer;
+                model.Name = type.Name;
+                model.Price = type.Price;
+                model.TypeCode = type.TypeCode;
+
+                context.ComponentTypes.Add(model);
+                context.SaveChanges();
+            }
+            
+
+            
+        }
+
+        public List<SelectListItem> PackageItemsList()
+      {
+
+             using (var context = new DemoAppContext())
+         {
+                 var list = context.Packages.ToList();
+
+                 List<SelectListItem> items = new List<SelectListItem>();
+                 foreach (var package in list)
+                 {
+                     items.Add(new SelectListItem { Text = package.Name, Value = package.Id.ToString() });
+                 }
+                 return items;
+             }
+         }
+ 
     }
 }
