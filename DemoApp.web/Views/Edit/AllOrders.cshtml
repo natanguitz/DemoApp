@@ -1,0 +1,53 @@
+﻿@model IEnumerable<DemoApp.Domain.Order>
+
+@{
+    ViewBag.Title = "AllOrders";
+}
+
+<h2>All Orders</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderState)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeliveryDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FinalPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderState)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FinalPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditOrder", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "OrderToDelete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

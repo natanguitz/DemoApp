@@ -42,6 +42,7 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "EditAPackage", new { id=item.Id }) |
+            @Html.ActionLink("Components", "GetAllComponents", new { id = item.Id }) |
            
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>

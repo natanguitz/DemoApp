@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DemoApp.Domain;
+using System.Web.Mvc;
 
 namespace DemoApp.Repository.Services
 {
@@ -12,5 +13,16 @@ namespace DemoApp.Repository.Services
         List<Package> GetAllPackages();
 
         void EditPackage(Package package);
+        Component GetSingleComponent(int id);
+        void EditedComponent(Component component);
+
+        void EditedComponentType(ComponentType type);
+
+        List<Order> GetAllOrders();
+
+        Order GetSingleOrder(int id);
+
+        void EditedOrder(Order order);
+        void DeleteOrder(Order order);
     }
 }

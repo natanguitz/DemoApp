@@ -216,6 +216,12 @@
     <Content Include="Views\Edit\EditPackage.cshtml" />
     <Content Include="Views\Edit\PackageEditForm.cshtml" />
     <Content Include="Views\Edit\ThankYou.cshtml" />
+    <Content Include="Views\Edit\GetAllComponents.cshtml" />
+    <Content Include="Views\Edit\GetAllComponentTypes.cshtml" />
+    <Content Include="Views\Edit\EditComponent.cshtml" />
+    <Content Include="Views\Edit\EditComponentType.cshtml" />
+    <Content Include="Views\Edit\AllOrders.cshtml" />
+    <Content Include="Views\Edit\EditOrder.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

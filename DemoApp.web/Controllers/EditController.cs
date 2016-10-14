@@ -41,7 +41,6 @@ namespace DemoApp.web.Controllers
             return View("Thankyou");
         }
 
-
         [HttpGet]
         public ActionResult EditAPackage(int id)
         {
@@ -51,19 +50,80 @@ namespace DemoApp.web.Controllers
             return View("PackageEditForm",package);
         }
 
-        public ActionResult EditComponent()
+
+        [HttpGet]
+        public ActionResult GetAllComponents(int id)
         {
-            return View();
+            var listAllPackages = _iadmin.GetComponents(id);
+            return View(listAllPackages);
         }
 
-        public ActionResult EditComponentType()
+        [HttpGet]
+        public ActionResult EditComponent(int id)
         {
-            return View();
+            var comp = _editServices.GetSingleComponent(id);
+            ViewBag.packageitems = _iadmin.PackageItemsList();  
+            return View(comp);
         }
 
-        public ActionResult EditOrder()
+        [HttpPost]
+        public ActionResult ComponentEdited(Component component)
         {
-            return View();
+            _editServices.EditedComponent(component);
+
+            return View("ThankYou");
+        }
+
+        [HttpGet]
+        public ActionResult GetAllComponentTypes(int id)
+        {
+            var list = _iservices.GetComponentTypeList(id);
+            return View(list);
+        }
+
+        [HttpGet]
+        public ActionResult EditComponentType(int id)
+        {
+            var type = _iservices.GetSingleComponentType(id);
+            //ViewBag.components = _editServices.ListComponentsinAPackage(type);
+
+            return View(type);
+        }
+
+        [HttpPost]
+        public ActionResult ComponentTypeEdited(ComponentType type)
+        {
+            _editServices.EditedComponentType(type);
+
+            return View("ThankYou");
+        }
+
+
+        public ActionResult AllOrders()
+        {
+            var allOrders = _editServices.GetAllOrders();
+            return View(allOrders);
+        }
+
+        [HttpGet]
+        public ActionResult EditOrder(int id)
+        {
+            Order order = _editServices.GetSingleOrder(id);
+            return View(order);
+        }
+
+        [HttpPost]
+        public ActionResult OrderEdited(Order order)
+        {
+            _editServices.EditedOrder(order);
+            return RedirectToAction("AllOrders");
+        }
+
+        [HttpGet]
+        public ActionResult OrderToDelete(Order order)
+        {
+            _editServices.DeleteOrder(order);
+            return RedirectToAction("AllOrders");
         }
     }
 }

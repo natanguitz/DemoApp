@@ -22,7 +22,6 @@
                             @if (User.IsInRole("admins"))
                             {
                                 <li>@Html.ActionLink("Admin Area", "AdminIndex", "Admin")</li>
-                                <li>@Html.ActionLink("Edit", "EditHome", "Edit")</li>
                             }                
                         </ul>
                     }
