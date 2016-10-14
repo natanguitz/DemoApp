@@ -50,6 +50,13 @@ namespace DemoApp.web.Controllers
             return View("PackageEditForm",package);
         }
 
+        public ActionResult DeletePackage(int id)
+        {
+            _editServices.DeletePackage(id);
+
+            return RedirectToAction("EditPackage");
+        }
+
 
         [HttpGet]
         public ActionResult GetAllComponents(int id)
@@ -75,6 +82,14 @@ namespace DemoApp.web.Controllers
         }
 
         [HttpGet]
+        public ActionResult DeleteComponent(Component component)
+        {
+            _editServices.DeleteComponent(component);
+
+            return RedirectToAction("EditPackage");
+        }
+
+        [HttpGet]
         public ActionResult GetAllComponentTypes(int id)
         {
             var list = _iservices.GetComponentTypeList(id);
@@ -96,6 +111,12 @@ namespace DemoApp.web.Controllers
             _editServices.EditedComponentType(type);
 
             return View("ThankYou");
+        }
+
+        public ActionResult DeleteComponentType(ComponentType type)
+        {
+            _editServices.DeleteComponentType(type);
+            return RedirectToAction("EditPackage");
         }
 
 
