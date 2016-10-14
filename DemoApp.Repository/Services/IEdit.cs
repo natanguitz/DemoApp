@@ -24,5 +24,8 @@ namespace DemoApp.Repository.Services
 
         void EditedOrder(Order order);
         void DeleteOrder(Order order);
+        void DeleteComponentType(ComponentType type);
+        void DeleteComponent(Component component);
+        void DeletePackage(int id);
     }
 }

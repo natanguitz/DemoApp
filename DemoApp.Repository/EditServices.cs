@@ -136,5 +136,73 @@ namespace DemoApp.Repository
                 context.SaveChanges();
             }
         }
+
+        public void DeleteComponentType(ComponentType type)
+        {
+            using (var context = new DemoAppContext())
+            {
+                var typetodelete = context.ComponentTypes.SingleOrDefault(x => x.Id == type.Id);
+                context.ComponentTypes.Remove(typetodelete);
+                context.SaveChanges();
+            }
+
+        }
+
+        public void DeleteComponent(Component component)
+        {
+            using (var context = new DemoAppContext())
+            {
+                var todelete = context.Components.SingleOrDefault(x => x.Id == component.Id);
+                var types = context.ComponentTypes.Where(x => x.ComponentId == component.Id).ToList();
+
+                foreach (var componentType in types)
+                {
+                    context.ComponentTypes.Remove(componentType);
+                    context.SaveChanges();
+                }
+
+                context.Components.Remove(todelete);
+                context.SaveChanges();
+
+            }
+        }
+
+        public void DeletePackage(int id)
+        {
+
+            using (var  context = new DemoAppContext())
+            {
+                var todelete = context.Packages.SingleOrDefault(x => x.Id == id);
+                var componets = context.Components.Where(x => x.PackageId == todelete.Id).ToList();
+                List<ComponentType> listofcomponents = new List<ComponentType>();
+
+                foreach (var item in componets)
+                {
+                    var types = context.ComponentTypes.Where(x => x.ComponentId == item.Id).ToList();
+                    foreach (var componentType in types)
+                    {
+                        listofcomponents.Add(componentType);
+                    }
+                }
+
+                foreach (var itemcomp in listofcomponents)
+                {
+                    var itemtodelete = context.ComponentTypes.SingleOrDefault(x => x.Id == itemcomp.Id);
+                    context.ComponentTypes.Remove(itemtodelete);
+                    context.SaveChanges();
+                }
+
+                foreach (var item in componets)
+                {
+                    var itemcom = context.Components.SingleOrDefault(x => x.Id == item.Id);
+                    context.Components.Remove(itemcom);
+                    context.SaveChanges();
+                }
+                context.Packages.Remove(todelete);
+                context.SaveChanges();
+
+
+            }
+        }
     }
 }
