@@ -21,8 +21,6 @@ namespace DemoApp.web.Controllers
             return View();
         }
 
-
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -96,8 +94,6 @@ namespace DemoApp.web.Controllers
                 }
                 AddErrors(result);
             }
-
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 

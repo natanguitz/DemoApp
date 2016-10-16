@@ -2,19 +2,29 @@
 @{
     ViewBag.Title = "Login";
 }
-<h2>Login</h2>
 @using (Html.BeginForm("Login", "Account",
                 new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
-    <div>
-        @Html.TextBox("Username")
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Login</h1>
+            <div>
+                @Html.TextBox("Username")
+            </div>
+            <br/>
+            <div>
+                @Html.Password("Password")
+            </div>
+            <br />
+            <div>
+                <input type="submit" value="Log in" class="btn btn-default" />
+            </div>
+        </div>
+
     </div>
-    <div>
-        @Html.Password("Password")
-    </div>
-    <div>
-        <input type="submit" value="Log in" class="btn btn-default" />
-    </div>
+
 }
+

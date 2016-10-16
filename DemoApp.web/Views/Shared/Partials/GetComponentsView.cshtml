@@ -1,12 +1,16 @@
 ﻿@model List<DemoApp.Domain.Component>
    
-@if (Model != null)
-{
-    <h1>@ViewBag.packname</h1>
-    foreach (var item in Model)
-    {
-        <p>
-            @Ajax.ActionLink(item.Name, "ShowFormPartialViewResult", "Admin", new { id = item.Id },
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Choose One @ViewBag.text</div>
+    <div class="panel-body">
+        @if (Model != null)
+        {
+            <ul class="nav nav-pills nav-stacked">
+                @foreach (var item in Model)
+                {
+                <li>
+                    @Ajax.ActionLink(item.Name, "ShowFormPartialViewResult", "Admin", new { id = item.Id },
                 new AjaxOptions
                 {
                     UpdateTargetId = "ShowForm",
@@ -15,7 +19,9 @@
                     LoadingElementId = "imgloader",
                     OnSuccess = "fnSuccess",
                 }, new { @class = "btn btn-lg" })
-        </p>
-    }
-
-}
+                </li>
+                }
+            </ul>
+        }
+    </div>
+</div>

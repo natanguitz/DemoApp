@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using System.Web.UI.WebControls;
 using DemoApp.Data;
 using DemoApp.Domain;
 using DemoApp.Repository.Services;
@@ -13,20 +8,17 @@ namespace DemoApp.Repository
 {
     public class EditServices : IEdit
     {
+        readonly DemoAppContext _context = new DemoAppContext();
+
         public List<Package> GetAllPackages()
         {
-            using (var context = new DemoAppContext())
-            {
-                var list = context.Packages.ToList();
-                return list;
-            }
+
+            return _context.Packages.ToList();
         }
 
         public void EditPackage(Package package)
         {
-            using (var context = new DemoAppContext())
-            {
-                Package oldpack = context.Packages.SingleOrDefault(x => x.Id == package.Id);
+                Package oldpack = _context.Packages.SingleOrDefault(x => x.Id == package.Id);
 
                 if (oldpack != null)
                 {
@@ -35,25 +27,19 @@ namespace DemoApp.Repository
                     oldpack.InitialPrice = package.InitialPrice;
                     oldpack.Name = package.Name;
                     oldpack.PackakeTypeId = package.PackakeTypeId;
-                    context.SaveChanges();
+                    _context.SaveChanges();
                 }
-            }
         }
 
         public Component GetSingleComponent(int id)
         {
-            using (var context = new DemoAppContext())
-            {
-                var component = context.Components.SingleOrDefault(x => x.Id == id);
-                return component;
-            }
+
+            return _context.Components.SingleOrDefault(x => x.Id == id);
         }
 
         public void EditedComponent(Component component)
         {
-            using (var context = new DemoAppContext())
-            {
-                Component old = context.Components.SingleOrDefault(z => z.Id == component.Id);
+                Component old = _context.Components.SingleOrDefault(z => z.Id == component.Id);
                 if (old != null)
                 {
                     old.Name = component.Name;
@@ -61,17 +47,13 @@ namespace DemoApp.Repository
                     old.PackageId = component.PackageId;
                     old.ComponentTypes = component.ComponentTypes;
 
-                    context.SaveChanges();
+                    _context.SaveChanges();
                 }
-            }
         }
 
         public void EditedComponentType(ComponentType coming)
         {
-
-            using (var context = new DemoAppContext())
-            {
-                ComponentType old = context.ComponentTypes.FirstOrDefault(x => x.Id == coming.Id);
+                ComponentType old = _context.ComponentTypes.FirstOrDefault(x => x.Id == coming.Id);
 
                 if (old != null)
                 {
@@ -83,35 +65,26 @@ namespace DemoApp.Repository
                     old.Name = coming.Name;
                     old.Price = coming.Price;
                     old.TypeCode = coming.TypeCode;
-                    context.SaveChanges();
+                    _context.SaveChanges();
                 }
-            }
             
         }
 
         public List<Order> GetAllOrders()
         {
-            using (var context = new DemoAppContext())
-            {
-                var allOrders = context.Orders.ToList();
-                return allOrders;
-            }
+
+            return _context.Orders.ToList();
         }
 
         public Order GetSingleOrder(int id)
         {
-            using (var context = new DemoAppContext())
-            {
-                Order order = context.Orders.SingleOrDefault(x => x.Id == id);
-                return order;
-            }
+
+            return _context.Orders.SingleOrDefault(x => x.Id == id);
         }
 
         public void EditedOrder(Order order)
         {
-            using (var context = new DemoAppContext())
-            {
-                Order old = context.Orders.SingleOrDefault(x => x.Id == order.Id);
+                Order old = _context.Orders.SingleOrDefault(x => x.Id == order.Id);
 
                 if (old != null)
                 {
@@ -122,63 +95,48 @@ namespace DemoApp.Repository
                     old.OrderCode = order.OrderCode;
                     old.OrderState = order.OrderState;
                 }
-                context.SaveChanges();
-            }
-            
+                _context.SaveChanges();    
         }
 
         public void DeleteOrder(Order order)
         {
-            using (var context = new DemoAppContext())
-            {
-                var orderToDelete = context.Orders.SingleOrDefault(x => x.Id == order.Id);
-                context.Orders.Remove(orderToDelete);
-                context.SaveChanges();
-            }
+                var orderToDelete = _context.Orders.SingleOrDefault(x => x.Id == order.Id);
+                _context.Orders.Remove(orderToDelete);
+                _context.SaveChanges();
         }
 
         public void DeleteComponentType(ComponentType type)
         {
-            using (var context = new DemoAppContext())
-            {
-                var typetodelete = context.ComponentTypes.SingleOrDefault(x => x.Id == type.Id);
-                context.ComponentTypes.Remove(typetodelete);
-                context.SaveChanges();
-            }
+                var typetodelete = _context.ComponentTypes.SingleOrDefault(x => x.Id == type.Id);
+                _context.ComponentTypes.Remove(typetodelete);
+                _context.SaveChanges();
 
         }
 
         public void DeleteComponent(Component component)
         {
-            using (var context = new DemoAppContext())
-            {
-                var todelete = context.Components.SingleOrDefault(x => x.Id == component.Id);
-                var types = context.ComponentTypes.Where(x => x.ComponentId == component.Id).ToList();
+                var todelete = _context.Components.SingleOrDefault(x => x.Id == component.Id);
+                var types = _context.ComponentTypes.Where(x => x.ComponentId == component.Id).ToList();
 
                 foreach (var componentType in types)
                 {
-                    context.ComponentTypes.Remove(componentType);
-                    context.SaveChanges();
+                    _context.ComponentTypes.Remove(componentType);
+                    _context.SaveChanges();
                 }
 
-                context.Components.Remove(todelete);
-                context.SaveChanges();
-
-            }
+                _context.Components.Remove(todelete);
+                _context.SaveChanges();
         }
 
         public void DeletePackage(int id)
         {
-
-            using (var  context = new DemoAppContext())
-            {
-                var todelete = context.Packages.SingleOrDefault(x => x.Id == id);
-                var componets = context.Components.Where(x => x.PackageId == todelete.Id).ToList();
+                var todelete = _context.Packages.SingleOrDefault(x => x.Id == id);
+                var componets = _context.Components.Where(x => x.PackageId == todelete.Id).ToList();
                 List<ComponentType> listofcomponents = new List<ComponentType>();
 
                 foreach (var item in componets)
                 {
-                    var types = context.ComponentTypes.Where(x => x.ComponentId == item.Id).ToList();
+                    var types = _context.ComponentTypes.Where(x => x.ComponentId == item.Id).ToList();
                     foreach (var componentType in types)
                     {
                         listofcomponents.Add(componentType);
@@ -187,22 +145,19 @@ namespace DemoApp.Repository
 
                 foreach (var itemcomp in listofcomponents)
                 {
-                    var itemtodelete = context.ComponentTypes.SingleOrDefault(x => x.Id == itemcomp.Id);
-                    context.ComponentTypes.Remove(itemtodelete);
-                    context.SaveChanges();
+                    var itemtodelete = _context.ComponentTypes.SingleOrDefault(x => x.Id == itemcomp.Id);
+                    _context.ComponentTypes.Remove(itemtodelete);
+                    _context.SaveChanges();
                 }
 
                 foreach (var item in componets)
                 {
-                    var itemcom = context.Components.SingleOrDefault(x => x.Id == item.Id);
-                    context.Components.Remove(itemcom);
-                    context.SaveChanges();
+                    var itemcom = _context.Components.SingleOrDefault(x => x.Id == item.Id);
+                    _context.Components.Remove(itemcom);
+                    _context.SaveChanges();
                 }
-                context.Packages.Remove(todelete);
-                context.SaveChanges();
-
-
-            }
+                _context.Packages.Remove(todelete);
+                _context.SaveChanges();
         }
     }
 }

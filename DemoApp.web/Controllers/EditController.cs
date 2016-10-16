@@ -100,8 +100,6 @@ namespace DemoApp.web.Controllers
         public ActionResult EditComponentType(int id)
         {
             var type = _iservices.GetSingleComponentType(id);
-            //ViewBag.components = _editServices.ListComponentsinAPackage(type);
-
             return View(type);
         }
 

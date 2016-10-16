@@ -11,8 +11,6 @@ namespace DemoApp.Repository.Services
 
         Package GetSinglePackage(int id);
 
-        List<Component> GetComponent(int id);
-
         List<ComponentType> GetComponentTypeList(int id);
 
         ComponentType GetSingleComponentType(int id);
@@ -22,8 +20,6 @@ namespace DemoApp.Repository.Services
         decimal FinalPrice(List<ComponentType> prices);
         bool CheckIfExist(List<ComponentType> list, ComponentType type);
         List<ComponentType> CleanList(List<ComponentType> list);
-
-        bool CheckItems(List<ComponentType> list );
 
     }
 }

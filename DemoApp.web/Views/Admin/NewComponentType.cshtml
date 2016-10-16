@@ -6,21 +6,28 @@
 }
 <div class="row">
     <div class="col-md-4">
-        @foreach (var item in (List<Package>)ViewBag.items)
-        {
+        <div class="panel panel-primary">
+            <div class="panel-heading text-center">Choose One</div>
+            <div class="panel-body">
+                <ul class="nav nav-pills nav-stacked">
+                    @foreach (var item in (List<Package>)ViewBag.items)
+                    {
 
-            <p>
-                @Ajax.ActionLink(item.Name, "GetComponent", "Admin", new { id = item.Id },
-                new AjaxOptions
-                {
-                    UpdateTargetId = "ShowComponents",
-                    InsertionMode = InsertionMode.Replace,
-                    HttpMethod = "Get",
-                    LoadingElementId = "imgloader",
-                    OnSuccess = "fnSuccess",
-                }, new { @class = "btn btn-lg" })
-            </p>
-        }
+                        <li>
+                            @Ajax.ActionLink(item.Name, "GetComponent", "Admin", new { id = item.Id },
+                                new AjaxOptions
+                                {
+                                    UpdateTargetId = "ShowComponents",
+                                    InsertionMode = InsertionMode.Replace,
+                                    HttpMethod = "Get",
+                                    LoadingElementId = "imgloader",
+                                    OnSuccess = "fnSuccess",
+                                }, new { @class = "btn btn-lg" })
+                        </li>
+                    }
+                </ul>           
+            </div>
+        </div>   
     </div>
     <div class="col-md-4" id="ShowComponents">
         
@@ -28,6 +35,14 @@
     <div class="col-md-4" id="ShowForm">
 
     </div>
+</div>
+
+<div class="row">
+    <ul class="breadcrumb">
+        <li>@Html.ActionLink("Admin Home", "AdminIndex", "Admin")</li>
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    </ul>
+
 </div>
 
 

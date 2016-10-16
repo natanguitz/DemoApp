@@ -1,143 +1,110 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DemoApp.Data;
 using DemoApp.Domain;
 using DemoApp.Repository.Services;
-using System.Collections;
-using System.Data.Entity;
 using System.Web.Mvc;
 
 namespace DemoApp.Repository
 {
     public class AdminServices : IAdmin
     {
+        readonly DemoAppContext _context = new DemoAppContext();
         public void SaveNewPackageType(string name)
         {
-            using (var context = new DemoAppContext())
-            {
-                var npt = new PackageType();
-                npt.Name = name;
-                context.PackageTypes.Add(npt);
-                context.SaveChanges();
-            }
+            var newpackagetype = new PackageType {Name = name};
+            _context.PackageTypes.Add(newpackagetype);
+            _context.SaveChanges();
         }
 
         public List<SelectListItem> PackageTypeItems()
         {
-            using (var context = new DemoAppContext())
+            var allpackagetypes = _context.PackageTypes.ToList();
+            List<SelectListItem> items = new List<SelectListItem>();
+            foreach (var type in allpackagetypes)
             {
-                var list = context.PackageTypes.ToList();
-                List<SelectListItem> items = new List<SelectListItem>();
-                foreach (var type in list)
-                {
-                    items.Add(new SelectListItem { Text = type.Name, Value = type.Id.ToString() });
-                }
-                return items;
+                items.Add(new SelectListItem {Text = type.Name, Value = type.Id.ToString()});
             }
+            return items;
         }
 
         public List<Package> PackageItems()
         {
-            using (var context = new DemoAppContext())
-            {
-                var list = context.Packages.ToList();
-                
-                
-                return list;
-            }
+
+            return _context.Packages.ToList();
         }
 
         public List<SelectListItem> ComponentItems(int? id)
         {
-            using (var context = new DemoAppContext())
+
+            var componentslist = _context.Components.Where(x => x.Id == id).ToList();
+            List<SelectListItem> items = new List<SelectListItem>();
+            foreach (var component in componentslist)
             {
-                var list = context.Components.Where(x => x.Id == id).ToList();
-                List<SelectListItem> items = new List<SelectListItem>();
-                foreach (var type in list)
-                {
-                    items.Add(new SelectListItem { Text = type.Name, Value = type.Id.ToString() });
-                }
-                return items;
+                items.Add(new SelectListItem {Text = component.Name,Value = component.Id.ToString()});
             }
+            return items;
         }
 
         public void CreateAPackage(Package package)
         {
-            using (var context = new DemoAppContext())
+            var np = new Package
             {
-                var np = new Package();
-                np.Name = package.Name;
-                np.Description = package.Description;
-                np.ImageUrl = package.ImageUrl;
-                np.InitialPrice = package.InitialPrice;
-                np.PackakeTypeId = package.PackakeTypeId;
-                context.Packages.Add(np);
-                context.SaveChanges();
-            }
+                Name = package.Name,
+                Description = package.Description,
+                ImageUrl = package.ImageUrl,
+                InitialPrice = package.InitialPrice,
+                PackakeTypeId = package.PackakeTypeId
+            };
+            _context.Packages.Add(np);
+            _context.SaveChanges();
+
         }
 
         public void CreateComponent(Component component)
         {
-            using (var context = new DemoAppContext())
+            Component cp = new Component
             {
-                Component cp = new Component();
-                cp.Name = component.Name;
-                cp.ImageUrl = component.ImageUrl;
-                cp.PackageId = component.PackageId;
-                context.Components.Add(cp);
-                context.SaveChanges();
-            }   
+                Name = component.Name,
+                ImageUrl = component.ImageUrl,
+                PackageId = component.PackageId
+            };
+            _context.Components.Add(cp);
+            _context.SaveChanges();
         }
 
         public List<Component> GetComponents(int id)
         {
-            using (var context = new DemoAppContext())
-            {
-                var list = context.Components.Where(x => x.PackageId == id).ToList();
-                return list;
-            }
+            return _context.Components.Where(x => x.PackageId == id).ToList();
         }
 
         public void SaveNewComponentType(ComponentType type)
         {
-            using (var context = new DemoAppContext())
+            ComponentType model = new ComponentType
             {
-                ComponentType model = new ComponentType();
-                model.ComponentId = type.ComponentId;
-                model.DeliveryDate = type.DeliveryDate;
-                model.Description = type.Description;
-                model.ImageUrl = type.ImageUrl;
-                model.Manufacturer = type.Manufacturer;
-                model.Name = type.Name;
-                model.Price = type.Price;
-                model.TypeCode = type.TypeCode;
-
-                context.ComponentTypes.Add(model);
-                context.SaveChanges();
-            }
-            
-
-            
+                ComponentId = type.ComponentId,
+                DeliveryDate = type.DeliveryDate,
+                Description = type.Description,
+                ImageUrl = type.ImageUrl,
+                Manufacturer = type.Manufacturer,
+                Name = type.Name,
+                Price = type.Price,
+                TypeCode = type.TypeCode
+            };
+            _context.ComponentTypes.Add(model);
+            _context.SaveChanges();
         }
 
         public List<SelectListItem> PackageItemsList()
-      {
+        {
+            var list = _context.Packages.ToList();
+            List<SelectListItem> items = new List<SelectListItem>();
 
-             using (var context = new DemoAppContext())
-         {
-                 var list = context.Packages.ToList();
-
-                 List<SelectListItem> items = new List<SelectListItem>();
-                 foreach (var package in list)
-                 {
-                     items.Add(new SelectListItem { Text = package.Name, Value = package.Id.ToString() });
-                 }
-                 return items;
-             }
-         }
- 
+            foreach (var package in list)
+            {
+                items.Add(new SelectListItem { Text = package.Name, Value = package.Id.ToString() });
+            }
+            return items;
+        }
     }
 }

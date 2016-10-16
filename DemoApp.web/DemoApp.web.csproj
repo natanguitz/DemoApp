@@ -182,7 +182,6 @@
     </Compile>
     <Compile Include="Models\BuildPackage.cs" />
     <Compile Include="Models\MyCart.cs" />
-    <Compile Include="Models\NewPackage.cs" />
     <Compile Include="Models\RegisterUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -195,10 +194,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\Shared\Navigation.cshtml" />
-    <Content Include="Views\Home\NewPackage.cshtml" />
     <Content Include="Views\Shared\Partials\PackagesTypesViewModel.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\test.cshtml" />
     <Content Include="Views\CreatePackage\Create.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\Partials\PreviousCart.cshtml" />

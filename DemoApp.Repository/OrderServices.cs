@@ -11,20 +11,20 @@ namespace DemoApp.Repository
 {
     public class OrderServices : IOrders
     {
+        readonly DemoAppContext _context = new DemoAppContext();
+
         public void SaveOrder(Order order)
         {
-            Order neworder = new Order();
-            neworder.Customer = order.Customer;
-            neworder.OrderCode = order.OrderCode;
-            neworder.DeliveryDate = order.DeliveryDate;
-            neworder.PackageId = order.PackageId;
-            neworder.FinalPrice = order.FinalPrice;
-
-            using (var context = new DemoAppContext())
+            Order neworder = new Order
             {
-                context.Orders.Add(neworder);
-                context.SaveChanges();
-            }
+                Customer = order.Customer,
+                OrderCode = order.OrderCode,
+                DeliveryDate = order.DeliveryDate,
+                PackageId = order.PackageId,
+                FinalPrice = order.FinalPrice
+            };
+            _context.Orders.Add(neworder);
+            _context.SaveChanges();
         }
 
         public string GetCode(List<ComponentType> list)
@@ -50,24 +50,6 @@ namespace DemoApp.Repository
 
             return price;
         }
-
-        //public Package GetSinglePackage(int id)
-        //{
-        //    using (var context = new DemoAppContext())
-        //    {
-        //        var package = context.Packages.SingleOrDefault(x => x.Id == id);
-        //        return package;
-        //    }
-        //}
-
-        //public int GetSinglePackageId(int id)
-        //{
-        //    using (var context = new DemoAppContext())
-        //    {
-        //        var pc = context.Packages.SingleOrDefault(x => x.Id == id);
-        //        return pc.Id;
-        //    }
-        //}
 
         public DateTime GetDeliveryDate(List<ComponentType> list)
         {

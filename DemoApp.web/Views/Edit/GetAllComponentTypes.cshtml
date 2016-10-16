@@ -4,7 +4,7 @@
     ViewBag.Title = "GetAllComponentTypes";
 }
 
-<h2>GetAllComponentTypes</h2>
+<h2>All Items</h2>
 
 <p>
     @Html.ActionLink("Create New", "NewComponentType", "Admin")
@@ -35,37 +35,41 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Component.Name)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TypeCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DeliveryDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Manufacturer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImageUrl)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditComponentType", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "DeleteComponentType", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Manufacturer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageUrl)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditComponentType", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "DeleteComponentType", new { id=item.Id })
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div class="row">
+    <ul class="breadcrumb">
+        <li>@Html.ActionLink("Admin Home", "AdminIndex", "Admin")</li>
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    </ul>
+</div>
