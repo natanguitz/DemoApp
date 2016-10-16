@@ -10,87 +10,52 @@ namespace DemoApp.Repository
     public class MyServices : IServices
     {
         //first code lines 
+        readonly DemoAppContext _context = new DemoAppContext();
 
 
         public List<PackageType> GetPackageTypes()
         {
-            using (var db = new DemoAppContext())
-            {
-                var pt = db.PackageTypes.ToList();
-               
 
-                return pt;
-
-            }
+            return _context.PackageTypes.ToList();
         }
 
         public List<Package> GetPackagesById(int id)
         {
-            using (var db = new DemoAppContext())
-            {
-                var packs = db.Packages.Where(x => x.PackakeTypeId == id).ToList();
-                return packs;
-            }
+
+            return _context.Packages.Where(x => x.PackakeTypeId == id).ToList();
         }
 
         public Package GetSinglePackage(int id)
         {
-            using (var db = new DemoAppContext() )
-            {
-                var sp = db.Packages.SingleOrDefault(x => x.Id == id);
-                return sp;
-            }
-        }
 
-        public List<Component> GetComponent(int id)
-        {
-            using (var db = new DemoAppContext())
-            {
-                var allComponents = db.Components.Where(x => x.PackageId == id).ToList();
-                return allComponents;
-            }
+            return _context.Packages.SingleOrDefault(x => x.Id == id);
         }
 
         public List<ComponentType> GetComponentTypeList(int id)
         {
-            using (var db = new DemoAppContext())
-            {
-                var types = db.ComponentTypes.Where(x => x.Component.Id == id).ToList();
-                return types;
-            }
+
+            return _context.ComponentTypes.Where(x => x.ComponentId == id).ToList();
+
         }
 
         public ComponentType GetSingleComponentType(int id)
         {
-            using (var context = new DemoAppContext())
-            {
-                var type = context.ComponentTypes.SingleOrDefault(x => x.Id == id);
-                return type;
-            }
+            return _context.ComponentTypes.SingleOrDefault(x => x.Id == id);
         }
-
 
         public IList<Component> GetComponetsNdTypes(int id )
         {
-            using (var context = new DemoAppContext())
-            {
-                var list = context.Components.Where(x => x.PackageId == id).Include(x => x.ComponentTypes).ToList();
-                return list;
-            }
+            return _context.Components.Where(x => x.PackageId == id).Include(x => x.ComponentTypes).ToList();
         }
 
         public decimal FinalPrice(List<ComponentType> prices)
         {
-            decimal total = prices.Sum(x => x.Price);
-            return total;
+            return prices.Sum(x => x.Price);
         }
-
 
         public bool CheckIfExist(List<ComponentType> list ,ComponentType type)
         {
-            bool check = list.Any(x => x.ComponentId == type.ComponentId);
-
-            return check;
+            return list.Any(x => x.ComponentId == type.ComponentId);
         }
 
         public List<ComponentType> CleanList(List<ComponentType> list )
@@ -98,16 +63,6 @@ namespace DemoApp.Repository
             list.Clear();
             return list;
         }
-
-        public bool CheckItems(List<ComponentType> list)
-        {
-            bool check = list.Any(x => x.Id == 1 && x.Id == 2 && x.Id == 3);
-
-            return check;
-        }
-
-
-
         //ending code lines 
     }
 }

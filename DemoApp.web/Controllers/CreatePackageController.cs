@@ -22,15 +22,20 @@ namespace DemoApp.web.Controllers
         // GET: CreatePackage
         public ActionResult Create(int id)
         {
+
+            // clean list if user going to start to build a new 
+
             if ((List<ComponentType>) Session["MyCart"] != null)
             {
                 Session["MyCart"] = _iservices.CleanList((List<ComponentType>) Session["MyCart"]);
             }
 
-
+            //instance View model 
             BuildPackage buildPackage = new BuildPackage();
             buildPackage.Package = _iservices.GetSinglePackage(id);
             buildPackage.Component = _iservices.GetComponetsNdTypes(buildPackage.Package.Id);
+
+            // save package in the session 
             Session["packageToSend"] = buildPackage.Package;
 
             return View(buildPackage);
@@ -40,6 +45,9 @@ namespace DemoApp.web.Controllers
         public PartialViewResult PreviuosCartPartialViewResult(int id)
         {
             var ct = _iservices.GetSingleComponentType(id);
+
+
+            // instance view model 
 
             MyCart cart = new MyCart();
 
@@ -87,13 +95,16 @@ namespace DemoApp.web.Controllers
 
             if (ModelState.IsValid)
             {
-                Order myOrder = new Order();
-                myOrder.Customer = User.Identity.Name;
-                myOrder.FinalPrice = _iorders.GetFinalPrice(cartData.ListTypes, cartData.PackObject.InitialPrice);
-                myOrder.OrderCode = _iorders.GetCode(cartData.ListTypes);
-                myOrder.PackageId = cartData.PackObject.Id;
-                myOrder.OrderState = OrderState.New;
-                myOrder.DeliveryDate = _iorders.GetDeliveryDate(cartData.ListTypes);
+                Order myOrder = new Order
+                {
+                    Customer = User.Identity.Name,
+                    FinalPrice = _iorders.GetFinalPrice(cartData.ListTypes, cartData.PackObject.InitialPrice),
+                    OrderCode = _iorders.GetCode(cartData.ListTypes),
+                    PackageId = cartData.PackObject.Id,
+                    OrderState = OrderState.New,
+                    DeliveryDate = _iorders.GetDeliveryDate(cartData.ListTypes)
+                };
+
                 _iorders.SaveOrder(myOrder);
 
                 return View("Thank_You");

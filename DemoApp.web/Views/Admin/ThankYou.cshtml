@@ -3,8 +3,19 @@
     ViewBag.Title = "ThankYou";
 }
 
-<h2>ThankYou</h2>
 
-@Html.ActionLink("Admin Home","AdminIndex","Admin")
-@Html.ActionLink("Home","Index","Home")
+<div class="container">
+    <div class="jumbotron">
+        <h1>Thank you!</h1>
+    </div>
+</div>
+
+
+<ul class="breadcrumb">
+    <li>@Html.ActionLink("Admin Home", "AdminIndex", "Admin")</li>
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+</ul>
+
+
+
 
