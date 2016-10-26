@@ -2,9 +2,9 @@
 using System.Web.Mvc;
 using DemoApp.Domain;
 
-namespace DemoApp.Repository.Services
+namespace DemoApp.Services.Services
 {
-    public interface IAdmin
+    public interface IAdminService
     {
         void SaveNewPackageType(string name);
         List<SelectListItem> PackageTypeItems();

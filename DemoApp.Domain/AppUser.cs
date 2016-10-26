@@ -13,6 +13,5 @@ namespace DemoApp.Domain
         public string CompanyName { get; set; }
         [Required, StringLength(255)]
         public string DeliveryAdress { get; set; }
-
     }
 }

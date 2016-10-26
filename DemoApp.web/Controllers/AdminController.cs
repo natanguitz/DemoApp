@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using DemoApp.Domain;
-using DemoApp.Repository.Services;
+using DemoApp.Services.Services;
 
 namespace DemoApp.web.Controllers
 {
     [Authorize(Roles = "admins")]
     public class AdminController : Controller
     {
-        private readonly IAdmin _iservices;
+        private readonly IAdminService _iservices;
 
-        public AdminController(IAdmin services)
+        public AdminController(IAdminService services)
         {
             _iservices = services;
         }

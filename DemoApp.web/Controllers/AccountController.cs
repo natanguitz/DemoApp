@@ -1,12 +1,16 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using DemoApp.Data;
 using DemoApp.Domain;
 using DemoApp.web.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
 
 namespace DemoApp.web.Controllers
 {
@@ -83,7 +87,7 @@ namespace DemoApp.web.Controllers
 
             if (ModelState.IsValid)
             {
-                var user = new AppUser() { UserName = model.Email, FirstName =  model.FirstName, Email = model.Email, LastName = model.LastName, CompanyName = model.CompanyName, DeliveryAdress = model.DeliveryAdress};
+                var user = new AppUser() { UserName = model.FirstName + model.LastName, FirstName =  model.FirstName, Email = model.Email, LastName = model.LastName, CompanyName = model.CompanyName, DeliveryAdress = model.DeliveryAdress};
                 var result = await usermanager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -106,5 +110,18 @@ namespace DemoApp.web.Controllers
             }
         }
 
+        public ActionResult LogOff()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index", "Home");
+        }
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
     }
 }

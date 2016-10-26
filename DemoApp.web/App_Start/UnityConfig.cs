@@ -1,6 +1,8 @@
 using System.Web.Mvc;
-using System.Web.Services.Description;
-using DemoApp.Repository;
+using DemoApp.Repository.Services;
+using DemoApp.Services.Repositories;
+using DemoApp.Services.Services;
+using DemoApp.web.Repository;
 using Microsoft.Practices.Unity;
 using Unity.Mvc5;
 
@@ -12,16 +14,14 @@ namespace DemoApp.web
         {
 			var container = new UnityContainer();
 			
-            
-            // register all your components with the container here
-            // it is NOT necessary to register your controllers
-            
-            container.RegisterType<Repository.Services.IServices, MyServices>();
-            container.RegisterType<Repository.Services.IOrders, OrderServices>();
-            container.RegisterType<Repository.Services.IAdmin, AdminServices>();
-            container.RegisterType<Repository.Services.IEdit, EditServices>();
-
-
+            container.RegisterType<IOrderService,OrderService>(); 
+            container.RegisterType<IOrdersRepository,OrderRepository>(); 
+            container.RegisterType<IAdminService,AdminService>(); 
+            container.RegisterType<IAdminRepository,AdminRepository>();
+            container.RegisterType<IEditService, EditService>();
+            container.RegisterType<IEditRepository, EditRepository>();
+            container.RegisterType<IStartService, StartService>();
+            container.RegisterType<IStartRepository, StartRepository>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
