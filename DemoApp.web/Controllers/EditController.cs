@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using DemoApp.Domain;
 using DemoApp.Repository.Services;
+using DemoApp.Services.Services;
 
 namespace DemoApp.web.Controllers
 {
     public class EditController : Controller
     {
 
-        private readonly IEdit _editServices;
-        private readonly IServices _iservices;
-        private readonly IAdmin _iadmin;
+        private readonly IEditService _editServices;
+        private readonly IStartService _iservices;
+        private readonly IAdminService _iadmin;
 
-        public EditController(IEdit eServices,  IServices iservices, IAdmin iadmin)
+        public EditController(IEditService eServices,  IStartService iservices, IAdminService iadmin)
         {
             _iservices = iservices;
             _editServices = eServices;
@@ -30,8 +27,8 @@ namespace DemoApp.web.Controllers
 
         public ActionResult EditPackage()
         {
-            var listOfPackages = _editServices.GetAllPackages();
-            return View(listOfPackages);
+            
+            return View(_editServices.GetAllPackages());
         }
 
         [HttpPost]
@@ -61,8 +58,8 @@ namespace DemoApp.web.Controllers
         [HttpGet]
         public ActionResult GetAllComponents(int id)
         {
-            var listAllPackages = _iadmin.GetComponents(id);
-            return View(listAllPackages);
+           
+            return View(_iadmin.GetComponents(id));
         }
 
         [HttpGet]
@@ -92,15 +89,15 @@ namespace DemoApp.web.Controllers
         [HttpGet]
         public ActionResult GetAllComponentTypes(int id)
         {
-            var list = _iservices.GetComponentTypeList(id);
-            return View(list);
+           
+            return View(_iservices.GetComponentTypeList(id));
         }
 
         [HttpGet]
         public ActionResult EditComponentType(int id)
         {
-            var type = _iservices.GetSingleComponentType(id);
-            return View(type);
+            
+            return View(_iservices.GetSingleComponentType(id));
         }
 
         [HttpPost]
@@ -120,15 +117,13 @@ namespace DemoApp.web.Controllers
 
         public ActionResult AllOrders()
         {
-            var allOrders = _editServices.GetAllOrders();
-            return View(allOrders);
+            return View(_editServices.GetAllOrders());
         }
 
         [HttpGet]
         public ActionResult EditOrder(int id)
         {
-            Order order = _editServices.GetSingleOrder(id);
-            return View(order);
+            return View(_editServices.GetSingleOrder(id));
         }
 
         [HttpPost]

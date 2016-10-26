@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using DemoApp.Domain;
 using DemoApp.Repository.Services;
+using DemoApp.Services.Services;
 using DemoApp.web.Models;
+
 
 namespace DemoApp.web.Controllers
 {
     [Authorize]
     public class CreatePackageController : Controller
     {
-        private readonly IServices _iservices;
-        private readonly IOrders _iorders;
+        private readonly IStartService _iservices;
+        private readonly IOrderService _iorders;
 
-        public CreatePackageController(IServices services, IOrders iorders)
+        public CreatePackageController(IStartService services, IOrderService iorders)
         {
             _iservices = services;
             _iorders = iorders;
@@ -90,30 +92,21 @@ namespace DemoApp.web.Controllers
 
         public ActionResult SaveOrder(MyCart cartData)
         {
-            if (cartData == null) throw new ArgumentNullException(nameof(cartData));
-            cartData = (MyCart)TempData["ToOrder"];
+                if (cartData == null) throw new ArgumentNullException(nameof(cartData));
+                cartData = (MyCart)TempData["ToOrder"];
+                    Order myOrder = new Order
+                    {
+                        Customer = User.Identity.Name,
+                        FinalPrice = _iorders.GetFinalPrice(cartData.ListTypes, cartData.PackObject.InitialPrice),
+                        OrderCode = _iorders.GetCode(cartData.ListTypes),
+                        PackageId = cartData.PackObject.Id,
+                        OrderState = OrderState.New,
+                        DeliveryDate = _iorders.GetDeliveryDate(cartData.ListTypes)
+                    };
 
-            if (ModelState.IsValid)
-            {
-                Order myOrder = new Order
-                {
-                    Customer = User.Identity.Name,
-                    FinalPrice = _iorders.GetFinalPrice(cartData.ListTypes, cartData.PackObject.InitialPrice),
-                    OrderCode = _iorders.GetCode(cartData.ListTypes),
-                    PackageId = cartData.PackObject.Id,
-                    OrderState = OrderState.New,
-                    DeliveryDate = _iorders.GetDeliveryDate(cartData.ListTypes)
-                };
+                    _iorders.SaveOrder(myOrder);
 
-                _iorders.SaveOrder(myOrder);
-
-                return View("Thank_You");
-            }
-            else
-            {
-                return View("PreviosOrder", cartData);
-            }
-            
+                    return View("Thank_You");
         }
 
     }

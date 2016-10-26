@@ -7,7 +7,6 @@ namespace DemoApp.Domain
     {
         public int Id { get; set; }
         public string OrderCode { get; set; }
-        //public int Status { get; set; }
         public OrderState OrderState { get; set; }
         public DateTime DeliveryDate { get; set; }
         public decimal FinalPrice { get; set; }

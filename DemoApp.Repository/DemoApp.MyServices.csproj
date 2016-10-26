@@ -7,8 +7,8 @@
     <ProjectGuid>{EE128297-CFD6-4791-9ACC-CF6B42671198}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DemoApp.Repository</RootNamespace>
-    <AssemblyName>DemoApp.Repository</AssemblyName>
+    <RootNamespace>DemoApp.Services</RootNamespace>
+    <AssemblyName>DemoApp.Services</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -93,15 +93,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminServices.cs" />
-    <Compile Include="EditServices.cs" />
-    <Compile Include="MyServices.cs" />
-    <Compile Include="OrderServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IAdmin.cs" />
-    <Compile Include="Services\IEdit.cs" />
-    <Compile Include="Services\IOrders.cs" />
-    <Compile Include="Services\IServices.cs" />
+    <Compile Include="Repositories\IAdminRepository.cs" />
+    <Compile Include="Repositories\IEditRepository.cs" />
+    <Compile Include="Repositories\IOrdersRepository.cs" />
+    <Compile Include="Repositories\IStartRepository.cs" />
+    <Compile Include="Services\AdminService.cs" />
+    <Compile Include="Services\EditService.cs" />
+    <Compile Include="Services\IAdminService.cs" />
+    <Compile Include="Services\IEditService.cs" />
+    <Compile Include="Services\IOrderService.cs" />
+    <Compile Include="Services\IStartService.cs" />
+    <Compile Include="Services\ITestService.cs" />
+    <Compile Include="Services\OrderService.cs" />
+    <Compile Include="Services\StartService.cs" />
+    <Compile Include="Services\TestService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DemoApp.Data\DemoApp.Data.csproj">
@@ -114,9 +120,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

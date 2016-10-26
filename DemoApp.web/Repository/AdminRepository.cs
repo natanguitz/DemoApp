@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using DemoApp.Data;
 using DemoApp.Domain;
-using DemoApp.Repository.Services;
-using System.Web.Mvc;
+using DemoApp.Services.Repositories;
 
-namespace DemoApp.Repository
+namespace DemoApp.web.Repository
 {
-    public class AdminServices : IAdmin
+    public class AdminRepository : IAdminRepository
     {
         readonly DemoAppContext _context = new DemoAppContext();
         public void SaveNewPackageType(string name)
         {
-            var newpackagetype = new PackageType {Name = name};
+            var newpackagetype = new PackageType { Name = name };
             _context.PackageTypes.Add(newpackagetype);
             _context.SaveChanges();
         }
@@ -23,7 +23,7 @@ namespace DemoApp.Repository
             List<SelectListItem> items = new List<SelectListItem>();
             foreach (var type in allpackagetypes)
             {
-                items.Add(new SelectListItem {Text = type.Name, Value = type.Id.ToString()});
+                items.Add(new SelectListItem { Text = type.Name, Value = type.Id.ToString() });
             }
             return items;
         }
@@ -41,7 +41,7 @@ namespace DemoApp.Repository
             List<SelectListItem> items = new List<SelectListItem>();
             foreach (var component in componentslist)
             {
-                items.Add(new SelectListItem {Text = component.Name,Value = component.Id.ToString()});
+                items.Add(new SelectListItem { Text = component.Name, Value = component.Id.ToString() });
             }
             return items;
         }

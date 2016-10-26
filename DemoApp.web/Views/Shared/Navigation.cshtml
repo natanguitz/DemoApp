@@ -13,13 +13,27 @@
         <div class="collapse navbar-collapse" id="myNavbar">
                     @if (Request.IsAuthenticated)
                     {
+
+
                         <ul class="nav navbar-nav navbar-right">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>                           
-                            <li>@Html.ActionLink("Logged With  " + User.Identity.Name, "Index", "Home")</li>
+                            
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+
                             @if (User.IsInRole("admins"))
                             {
                                 <li>@Html.ActionLink("Admin Area", "AdminIndex", "Admin")</li>
-                            }                
+                               
+                               
+                              
+                                <li>@Html.ActionLink("Welcome admin  " + User.Identity.GetUserName(), "Index", "Home")</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("My Orders", "GetMyOrders", null, "Home", new { id = User.Identity.Name })</li>
+                                <li>@Html.ActionLink("Welcome  " + User.Identity.Name, "Index", "Home")</li>
+                            } 
+                                  
+                            <li>@Html.ActionLink("Logout", "LogOff", "Account")</li>      
                         </ul>
                     }
                     else

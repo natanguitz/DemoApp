@@ -1,18 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Web;
 using DemoApp.Data;
 using DemoApp.Domain;
-using DemoApp.Repository.Services;
+using DemoApp.Services.Repositories;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 
-namespace DemoApp.Repository
+namespace DemoApp.web.Repository
 {
-    public class MyServices : IServices
+    public class StartRepository : IStartRepository
     {
-        //first code lines 
+
         readonly DemoAppContext _context = new DemoAppContext();
-
-
         public List<PackageType> GetPackageTypes()
         {
 
@@ -43,7 +45,7 @@ namespace DemoApp.Repository
             return _context.ComponentTypes.SingleOrDefault(x => x.Id == id);
         }
 
-        public IList<Component> GetComponetsNdTypes(int id )
+        public IList<Component> GetComponetsNdTypes(int id)
         {
             return _context.Components.Where(x => x.PackageId == id).Include(x => x.ComponentTypes).ToList();
         }
@@ -53,17 +55,26 @@ namespace DemoApp.Repository
             return prices.Sum(x => x.Price);
         }
 
-        public bool CheckIfExist(List<ComponentType> list ,ComponentType type)
+        public bool CheckIfExist(List<ComponentType> list, ComponentType type)
         {
             return list.Any(x => x.ComponentId == type.ComponentId);
         }
 
-        public List<ComponentType> CleanList(List<ComponentType> list )
+        public List<ComponentType> CleanList(List<ComponentType> list)
         {
             list.Clear();
             return list;
         }
-        //ending code lines 
+
+        public void GetCurrentUser()
+        {
+            
+        }
+
+        public List<Order> GetMyOrders(string name)
+        {
+            return _context.Orders.Where(x => x.Customer == name).ToList();
+
+        }
     }
 }
- 

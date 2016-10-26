@@ -1,13 +1,13 @@
 ﻿using System.Web.Mvc;
-using DemoApp.Repository.Services;
+using DemoApp.Services.Services;
 
 namespace DemoApp.web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IServices _iservices;
+        private readonly IStartService _iservices;
 
-        public HomeController(IServices services)
+        public HomeController(IStartService services)
         {
             _iservices = services;
         }
@@ -27,6 +27,12 @@ namespace DemoApp.web.Controllers
         {
             var objAllPacks = _iservices.GetPackagesById(id);
             return PartialView("Partials/PackagesTypesViewModel", objAllPacks);
+        }
+
+        
+        public ActionResult GetMyOrders()
+        {
+            return View(_iservices.GetMyOrders(User.Identity.Name));
         }
         //method ends
     }

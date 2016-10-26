@@ -49,6 +49,10 @@
       padding: 0;
   }
 
+  .MyTextColor input{
+      color: black !important;
+  }
+
 
   .jumbotron {
       background-color: #f4511e;
