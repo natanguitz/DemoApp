@@ -83,5 +83,10 @@ namespace DemoApp.Test
         {
             throw new NotImplementedException();
         }
+
+        public List<Order> GetMyOrders(string name)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
